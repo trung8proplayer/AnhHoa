@@ -51,30 +51,30 @@
               </div>
 
               <div class="contact">
-                <a href="" class="hd">
+                <router-link to="" class="hd">
                     <v-icon>mdi-phone</v-icon>
                     <span>0961452578</span>
-                </a>
-                  <a href="" class="hd ">
+                </router-link>
+                  <router-link to="" class="hd ">
                     <v-icon>mdi-office-building</v-icon>
                     <span>Hệ thống 14 cửa hàng</span>
-                </a>
+                </router-link>
                   <router-link to="/account/login" class="hd" v-if="!user">
                     <v-icon>mdi-account</v-icon>
                     <span>Tài khoản</span>
                 </router-link>
-                <a href="/account" class="hd" v-if="user">
+                <router-link to="/account" class="hd" v-if="user">
                     <v-icon>mdi-account</v-icon>
                     <span>Chào, {{user.Name}} {{user.LastName}}</span>
-                </a>
-                <a href="/" @click="LogoutClick()"  class="hd" v-if="user">
+                </router-link>
+                <router-link to="/" @click="LogoutClick()"  class="hd" v-if="user">
                     <v-icon>mdi-logout</v-icon>
                     <span>Đăng xuất</span>
-                </a>
-                 <a href="/cart" class="hd cart">
+                </router-link>
+                 <router-link to="/cart" class="hd cart">
                     <v-icon>mdi-cart-variant</v-icon>
                     <span>0</span>
-                 </a>
+                 </router-link>
               </div>
               <div class="contact2">
                 <div ><a href="" class="hd2">
