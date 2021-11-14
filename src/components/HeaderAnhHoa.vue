@@ -59,10 +59,10 @@
                     <v-icon>mdi-office-building</v-icon>
                     <span>Hệ thống 14 cửa hàng</span>
                 </a>
-                  <a href="/account/login" class="hd" v-if="!user">
+                  <router-link to="/account/login" class="hd" v-if="!user">
                     <v-icon>mdi-account</v-icon>
                     <span>Tài khoản</span>
-                </a>
+                </router-link>
                 <a href="/account" class="hd" v-if="user">
                     <v-icon>mdi-account</v-icon>
                     <span>Chào, {{user.Name}} {{user.LastName}}</span>
