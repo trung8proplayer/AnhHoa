@@ -6,6 +6,7 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Cart from '../views/Cart.vue'
 import SearchProducts from '../components/SearchProducts.vue'
+import ProductDetail from '../views/ProductDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -47,6 +48,11 @@ const routes = [
     path: '/search-products',
     name: 'SearchProducts',
     component: SearchProducts
+  },
+  {
+    path: '/product-detail/:userId',
+    name: 'ProductDetail',
+    component: ProductDetail
   },
 ]
 

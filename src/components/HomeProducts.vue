@@ -28,16 +28,19 @@
                             class="mx-auto"
                             max-width="270px"
                         >
-                            <v-img
-                            class="white--text align-end"
-                            height="255px"
-                            src="https://product.hstatic.net/1000313040/product/53_c2a32321b1c4417d89a727f048d06659_large.png"
-                            >
-                            </v-img>
-                            <div class="title">
-                                <a href="" class="title_name"><h6 style="font-weight: bold">RED VELVET</h6></a>
-                                <h6>KT017</h6>
-                            </div>
+                            <router-link :to="{ name: 'ProductDetail', params: { userId: 1 }}">
+                                <v-img
+                                class="white--text align-end"
+                                height="255px"
+                                src="https://product.hstatic.net/1000313040/product/53_c2a32321b1c4417d89a727f048d06659_large.png"
+                                >
+                                </v-img>
+                            </router-link>
+                                <div class="title">
+                                    <router-link to="" class="title_name"><h6 style="font-weight: bold">{{}}</h6></router-link>
+                                    <small>KT017</small>
+                                </div>
+                            
                             <div>
                                 <div class="product_price">
                                     220,000₫
@@ -62,6 +65,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     name: 'HomeProducts',
     data: () => ({
@@ -69,7 +73,13 @@ export default {
                "//theme.hstatic.net/1000313040/1000406925/14/ms_banner_img3.jpg?v=1757",
                "//theme.hstatic.net/1000313040/1000406925/14/ms_banner_img4.jpg?v=1757",
                "//theme.hstatic.net/1000313040/1000406925/14/ms_banner_img5.jpg?v=1757"],
+        products:[]
     }),
+    async created(){
+          const response = axios.get('https://jsonplaceholder.typicode.com/posts')
+          this.products = (await response).data
+          console.log(this.products);
+    }, 
 }
 </script>
 
@@ -95,6 +105,7 @@ export default {
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    text-decoration: none;
 }
 .product_price{
     display: inline-block;
@@ -134,5 +145,5 @@ export default {
     border-radius: 10px;
     color: #fff;
     background: #3d1a1a;
-}
+} 
 </style>

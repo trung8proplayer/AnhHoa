@@ -21,9 +21,9 @@
                                         <input type="password" placeholder="Mật khẩu" v-model="password">
                                     </p>
                                     <p><button>Đăng nhập</button></p>
-                                    <a href="/"><p>Trở về</p></a>
-                                    <a href="/account/register"><p>Đăng kí</p></a>
-                                    <a href=""><p>Quên mật khẩu?</p></a>
+                                    <router-link to="/"><p>Trở về</p></router-link>
+                                    <router-link to="/account/register"><p>Đăng kí</p></router-link>
+                                    <router-link to=""><p>Quên mật khẩu?</p></router-link>
                                 </v-form>
                             </v-col>
                         </v-row>
@@ -47,7 +47,6 @@ export default {
     }),
     methods: {
         async HandleSubmit(){
-
            try{
                 const response = await axios.get('/user/1');
             

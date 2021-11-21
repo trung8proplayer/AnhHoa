@@ -27,7 +27,7 @@
                                     <input type="password" placeholder="Mật khẩu" v-model="password">
                                 </p>
                                 <p><button >Đăng ký</button></p>
-                                <a href="/"><p>Trở về</p></a>
+                                <router-link to="/"><p>Trở về</p></router-link>
                             </v-form>
                             </v-col>
                         </v-row>
