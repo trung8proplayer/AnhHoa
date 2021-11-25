@@ -1,149 +1,237 @@
 <template>
-    <div>
-        <div class="banner">
-            <template>
-                <v-carousel
-                    cycle
-                    height="auto"
-                    hide-delimiter-background
-                    show-arrows-on-hover
-                >
-                    <a href="">
-                        <v-carousel-item v-for="item in imgs" :key="item">
-                        <v-img :src="item"></v-img>
-                        </v-carousel-item>
-                    </a>
-                </v-carousel>
-            </template>
-        </div>
-        <v-main style="background-color: #f8f2e8">
-            <v-container class="products">
-                <div class="products_title">
-                    <h3>BỘ SƯU TẬP BÁNH KEM 20/11</h3>
-                    <h2><img src="//theme.hstatic.net/1000313040/1000406925/14/home_line_collection1.png?v=1757" alt=""></h2>
-                </div>
-                <v-row v-for="n in 3" :key="n">
-                    <v-col v-for="n in 4" :key="n" >
-                        <v-card
-                            class="mx-auto"
-                            max-width="270px"
-                        >
-                            <router-link :to="{ name: 'ProductDetail', params: { userId: 1 }}">
-                                <v-img
-                                class="white--text align-end"
-                                height="255px"
-                                src="https://product.hstatic.net/1000313040/product/53_c2a32321b1c4417d89a727f048d06659_large.png"
-                                >
-                                </v-img>
-                            </router-link>
-                                <div class="title">
-                                    <router-link to="" class="title_name"><h6 style="font-weight: bold">{{}}</h6></router-link>
-                                    <small>KT017</small>
-                                </div>
-                            
-                            <div>
-                                <div class="product_price">
-                                    220,000₫
-                                </div>
-                                <div class="product_actions">
-                                    <button><v-icon style="color: white">mdi-cart</v-icon></button>
-                                </div>
-                            </div>
-                        </v-card>
-                    </v-col>
-                </v-row>
-                <v-row>
-                    <v-col>
-                        <div class="btn_view-more">
-                            <a href="">Xem thêm</a>
-                        </div>
-                    </v-col>
-                </v-row>
-            </v-container>
-        </v-main>
+  <div>
+    <div class="banner">
+      <template>
+        <v-carousel
+          cycle
+          height="auto"
+          hide-delimiter-background
+          show-arrows-on-hover
+        >
+          <a href="">
+            <v-carousel-item v-for="item in imgs" :key="item">
+              <v-img :src="item"></v-img>
+            </v-carousel-item>
+          </a>
+        </v-carousel>
+      </template>
     </div>
+    <v-main style="background-color: #f8f2e8">
+      <v-container class="products">
+        <div class="products_title">
+          <h3>BỘ SƯU TẬP BÁNH KEM 20/11</h3>
+          <h2>
+            <img
+              src="//theme.hstatic.net/1000313040/1000406925/14/home_line_collection1.png?v=1757"
+              alt=""
+            />
+          </h2>
+        </div>
+        <v-row>
+          <v-col v-for="item in products.cakes" :key="item">
+            <v-card class="mx-auto" max-width="270px" >
+              <router-link
+                :to="{ name: 'ProductDetail', params: { cakeName: item.cake_name } }"
+              >
+                <v-img
+                  class="white--text align-end"
+                  height="255px"
+                  :src="item.cake_image"
+                >
+                </v-img>
+              </router-link>
+              <div class="title">
+                <router-link to="" class="title_name"
+                  ><h6 style="font-weight: bold">{{item.cake_name}}</h6></router-link
+                >
+                <small>{{item.cake_option}}</small>
+              </div>
+
+              <div>
+                <div class="product_price">{{formatCash(item.price.toString())}}₫</div>
+                <div class="product_actions">
+                  <button @click="[overlay=!overlay, showDetail(item._id)]">
+                    <v-icon style="color: white">mdi-cart</v-icon>
+                  </button>
+                  <v-overlay :z-index="zIndex" :value="overlay" :opacity="0.05" color="rgba(0, 0, 0, 0.4)">
+                     <span
+                        @click="overlay = false" class="btn_close"
+                      >
+                        <v-icon>mdi-close</v-icon>
+                      </span>
+                      <div class="detail_product">
+                        <v-row class="inner">
+                          <v-col cols="6">
+                            <div class="product_photo">
+                              <img :src="productDetail.cake_image" class="photo" />
+                            </div>
+                            <div class="product_photo_small">
+                              <img :src="productDetail.cake_image" class="photo" />
+                            </div>
+                          </v-col>
+                          <div>
+                            
+                          </div>
+                          <v-col>
+                            
+                          </v-col>
+                        </v-row>
+                      </div>
+                  </v-overlay>
+                </div>
+              </div>
+            </v-card>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <div class="btn_view-more">
+              <a href="">Xem thêm</a>
+            </div>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
+  </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
-    name: 'HomeProducts',
-    data: () => ({
-       imgs: ["//theme.hstatic.net/1000313040/1000406925/14/ms_banner_img2.jpg?v=1757",
-               "//theme.hstatic.net/1000313040/1000406925/14/ms_banner_img3.jpg?v=1757",
-               "//theme.hstatic.net/1000313040/1000406925/14/ms_banner_img4.jpg?v=1757",
-               "//theme.hstatic.net/1000313040/1000406925/14/ms_banner_img5.jpg?v=1757"],
-        products:[]
-    }),
-    async created(){
-          const response = axios.get('https://jsonplaceholder.typicode.com/posts')
-          this.products = (await response).data
-          console.log(this.products);
-    }, 
-}
+  name: "HomeProducts",
+  data: () => ({
+    imgs: [
+      "//theme.hstatic.net/1000313040/1000406925/14/ms_banner_img2.jpg?v=1757",
+      "//theme.hstatic.net/1000313040/1000406925/14/ms_banner_img3.jpg?v=1757",
+      "//theme.hstatic.net/1000313040/1000406925/14/ms_banner_img4.jpg?v=1757",
+      "//theme.hstatic.net/1000313040/1000406925/14/ms_banner_img5.jpg?v=1757",
+    ],
+    products: [],
+    zIndex: 0,
+    overlay: false,
+    productDetail: {},
+  }),
+  async created() {
+    const response = await axios.get("cake");
+    this.products = response.data;
+    console.log(this.products)
+  },
+  methods:{
+     formatCash(str) {
+      return str.split('').reverse().reduce((prev, next, index) => {
+        return ((index % 3) ? next : (next + ',')) + prev
+      });
+    },
+    showDetail(id){
+      this.productDetail = this.products.cakes.find(x=>x._id==id);
+    }
+      
+  }
+};
 </script>
 
 <style scoped>
-.products_title{
-    text-align: center;
-    padding: 30px;
+.products_title {
+  text-align: center;
+  padding: 30px;
 }
-.products_title h3{
-    font-size: 32px;
-    color: #c0c906;
-    margin-bottom: 0;
-    font-weight: bold;
+.products_title h3 {
+  font-size: 32px;
+  color: #c0c906;
+  margin-bottom: 0;
+  font-weight: bold;
 }
-.title{
-    text-align: center;
+.title {
+  text-align: center;
 }
-.title_name{
-    color: #333333;
-    padding-top: 10px;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-decoration: none;
+.title_name {
+  color: #333333;
+  padding-top: 10px;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-decoration: none;
 }
-.product_price{
-    display: inline-block;
-    padding: 0px 15px;
-    height: 40px;
-    line-height: 40px;
-    background: #c0c906;
-    color: #fff;
-    border-top-right-radius: 10px;
-    position: relative;
-    z-index: 2;
+.product_price {
+  display: inline-block;
+  padding: 0px 15px;
+  height: 40px;
+  line-height: 40px;
+  background: #c0c906;
+  color: #fff;
+  border-top-right-radius: 10px;
+  position: relative;
+  z-index: 1;
+  font-weight: bold;
 }
-.product_actions{
-    display: inline-block;
-    position: relative;
-    z-index: 1;
+.product_actions {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
 }
-.product_actions button{
-    height: 40px;
-    line-height: 40px;
-    width: 45px;
-    padding: 0px;
-    margin: 0px 0px 0px -7px;
-    background: #3d1a1a;
-    color: #fff;
-    border: 0px;
-    outline: 0px;
-    border-top-right-radius: 10px;
+.product_actions button {
+  height: 40px;
+  line-height: 40px;
+  width: 45px;
+  padding: 0px;
+  margin: 0px 0px 0px -7px;
+  background: #3d1a1a;
+  color: #fff;
+  border: 0px;
+  outline: 0px;
+  border-top-right-radius: 10px;
 }
-.btn_view-more{
-    margin: 20px 0px;
-    text-align: center;
+.btn_view-more {
+  margin: 20px 0px;
+  text-align: center;
 }
 .btn_view-more a {
-    display: inline-block;
-    padding: 10px 15px;
-    border-radius: 10px;
+  display: inline-block;
+  padding: 10px 15px;
+  border-radius: 10px;
+  color: #fff;
+  background: #3d1a1a;
+}
+.detail_product{
+  background-color: white;
+  height: 500px;
+  width: 800px;
+}
+.btn_close{
+    position: absolute;
+    top: -15px;
+    right: -15px;
     color: #fff;
-    background: #3d1a1a;
-} 
+    font-size: 18px;
+    font-weight: bold;
+    display: block;
+    height: 30px;
+    width: 30px;
+    background-color: #3d1a1a;
+    text-align: center;
+    z-index: 9999;
+    border-radius: 50%;
+    line-height: 30px;
+    cursor: pointer;
+}
+.v-overlay{
+  transition: 0.05s;
+}
+.product_photo {
+  height: 350px;
+  border-radius: 10px;
+}
+.photo {
+  width: 90%;
+  height: 90%;
+  margin: 5%;
+  border-radius: 10px;
+}
+.product_photo_small {
+  margin-top: 10px;
+  width: 100px;
+  border-radius: 10px;
+}
 </style>

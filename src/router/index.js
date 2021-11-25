@@ -7,6 +7,7 @@ import Register from '../views/Register.vue'
 import Cart from '../views/Cart.vue'
 import SearchProducts from '../components/SearchProducts.vue'
 import ProductDetail from '../views/ProductDetail.vue'
+import Checkout from '../Checkout.vue'
 
 Vue.use(VueRouter)
 
@@ -50,9 +51,14 @@ const routes = [
     component: SearchProducts
   },
   {
-    path: '/product-detail/:userId',
+    path: '/product-detail/:cakeName',
     name: 'ProductDetail',
     component: ProductDetail
+  },
+  {
+    path: '/checkout',
+    name: 'Checkout',
+    component: Checkout
   },
 ]
 

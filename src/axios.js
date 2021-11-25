@@ -1,3 +1,3 @@
 import axios from "axios";
 
-axios.defaults.baseURL = 'http://localhost:3933/api/';  
+axios.defaults.baseURL = 'https://cake-store-backend.herokuapp.com/api/';  

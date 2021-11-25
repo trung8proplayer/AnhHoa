@@ -1,83 +1,78 @@
 <template>
-   <div class="banner_account">
-        <div>
-            <div class="overlay_account">
-            </div>
-            <v-main>
-                <div class="title_account">
-                    <p><b>KẾT QUẢ TÌM KIẾM "{{key_search}}" - ANH HÒA BAKERY</b></p>
-                </div>
-                <div class="form_account">
-                        <v-row class="inner">
-                            <v-col>
-                                <div>
-                                    <h4><b>TÌM KIẾM</b></h4>
-                                    <hr><hr>
-                                    
-                                </div>
-                            </v-col>
-                        </v-row>
-                </div>
-            </v-main>
+  <div class="banner_account">
+    <div>
+      <div class="overlay_account"></div>
+      <v-main>
+        <div class="title_account">
+          <p>
+            <b>KẾT QUẢ TÌM KIẾM "{{ key_search.toUpperCase() }}" - ANH HÒA BAKERY</b>
+          </p>
         </div>
+        <div class="form_account">
+          <v-row class="inner">
+            <v-col>
+              <div>
+                <h4><b>TÌM KIẾM</b></h4>
+                <hr />
+                <hr />
+              </div>
+            </v-col>
+          </v-row>
+        </div>
+      </v-main>
     </div>
+  </div>
 </template>
 
 
 <script>
-
 export default {
-    name: 'SearchProducts',
-    data: () => ({
-        key_search: ""
-        
-    }),
-    created(){
-       console.log(this.$route.query)
-       this.key_search = this.$route.query.key;
+  name: "SearchProducts",
+  data: () => ({
+    key_search: "",
+  }),
+  created() {
+    console.log(this.$route.query);
+    this.key_search = this.$route.query.key;
+  },
+  watch: {
+    $route() {
+      this.key_search = this.$route.query.key;
     },
-    watch:{
-        $route(){
-            this.key_search = this.$route.query.key;
-        }
-    },
-    methods:{
-        
-    },
-    
-}
-
+  },
+  methods: {},
+};
 </script>
 
 <style scoped>
-    .banner_account{
-        background: url(//theme.hstatic.net/1000313040/1000406925/14/breadcrumb_bg.png?v=1757);
-        background-attachment: fixed;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        position: relative;
-        overflow: hidden;
-    }
-    .overlay_account{
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 0;
-        background: rgba(0, 0, 0, 0.5);
-    }
-    .title_account{
-        text-align: center;
-        color: white;
-        padding: 120px 0px;
-        font-size: 35px;
-    }
-    .form_account{
-        background: #f8f2e8;
-    }
-    .inner{
-        padding: 50px 180px
-    }
+.banner_account {
+  background: url(//theme.hstatic.net/1000313040/1000406925/14/breadcrumb_bg.png?v=1757);
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+}
+.overlay_account {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+.title_account {
+  text-align: center;
+  color: white;
+  padding: 120px 0px;
+  font-size: 35px;
+}
+.form_account {
+  background: #f8f2e8;
+}
+.inner {
+  padding: 50px 180px;
+}
 </style>
