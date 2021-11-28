@@ -2,7 +2,7 @@
   <v-app>
     <v-main>
       <header-anh-hoa :user="user" />
-      <router-view :user="user" />
+      <router-view @getUser="getUser" :user="user" />
       <footer-anh-hoa />
       <div id="hotline">
         <a href=""><v-icon style="color: white">mdi-phone</v-icon></a>
@@ -31,6 +31,12 @@ export default {
     this.users = JSON.parse(localStorage.getItem("token"));
     this.user = this.users.data[0]
   },
+  methods:{
+    getUser(){
+      this.users = JSON.parse(localStorage.getItem("token"));
+      this.user = this.users.data[0]
+    }
+  }
 };
 </script>
 <style scoped>

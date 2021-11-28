@@ -93,6 +93,9 @@ export default {
       sdt: "012345678",
     },
   }),
+  created(){
+    this.$emit("getUser")
+  }
 };
 </script>
 
