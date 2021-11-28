@@ -56,10 +56,9 @@ export default {
           email: this.email,
           password: this.password,
         });
-
+        
         localStorage.setItem("token", JSON.stringify(response));
         this.$router.push("/account");
-        location.reload();
       } catch (e) {
         this.error = "Email/Mật khẩu không hợp lệ!";
       }
