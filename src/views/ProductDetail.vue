@@ -33,20 +33,7 @@
                     }}</span>
                   </p>
                   <!-- <form action=""> -->
-                  <div>
-                    <h6>Kích thước</h6>
-                    <section style="display: block">
-                      <option value="19 cm">
-                        19 cm
-                      </option>
-                      <option value="21 cm">
-                        <input type="radio" class="size" name="option1" />21 cm
-                      </option>
-                      <option value="23 cm">
-                        <input type="radio" class="size" name="option1" />23 cm
-                      </option>
-                    </section>
-                  </div>
+                  
                   <br />
                   <div>
                     <span>Số lượng</span>
@@ -62,10 +49,23 @@
                       </button>
                     </div>
                   </div>
+                  <div>
+                        <p>Thành phần chính:</p>
+                        <p>- Gato</p>
+                        <p>- Kem tươi vị rượu rum</p>
+                        <p>- Hoa quả</p>
+                        <p>- Dừa khô.</p>
+                        <p>
+                          Bánh làm từ 3 lớp gato trắng xen giữa 3 lớp kem tươi
+                          vị rượu rum (nho). Trên mặt bánh được trang trí bằng
+                          hoa quả với dừa khô kết xung quanh.
+                        </p>
+                  </div>
                   <div class="product_actions">
                     <button class="btnAddtocart">THÊM VÀO GIỎ HÀNG</button>
                     <button class="btnBuynow">MUA NGAY</button>
                   </div>
+                  
                   <!--  </form> -->
                 </div>
               </div>
@@ -85,20 +85,7 @@
 
                 <v-tabs-items v-model="tab">
                   <v-tab-item>
-                    <v-card>
-                      <v-card-text>
-                        <h6>Thành phần chính:</h6>
-                        <h6>- Gato</h6>
-                        <h6>- Kem tươi vị rượu rum</h6>
-                        <h6>- Hoa quả</h6>
-                        <h6>- Dừa khô.</h6>
-                        <h6>
-                          Bánh làm từ 3 lớp gato trắng xen giữa 3 lớp kem tươi
-                          vị rượu rum (nho). Trên mặt bánh được trang trí bằng
-                          hoa quả với dừa khô kết xung quanh.
-                        </h6>
-                      </v-card-text>
-                    </v-card>
+                    
                   </v-tab-item>
                   <v-tab-item>
                     <v-card>
@@ -140,18 +127,6 @@ export default {
     },
     number: 1,
     tab: null,
-    items: [
-      { tab: "One", content: "Tab 1 Content" },
-      { tab: "Two", content: "Tab 2 Content" },
-      { tab: "Three", content: "Tab 3 Content" },
-      { tab: "Four", content: "Tab 4 Content" },
-      { tab: "Five", content: "Tab 5 Content" },
-      { tab: "Six", content: "Tab 6 Content" },
-      { tab: "Seven", content: "Tab 7 Content" },
-      { tab: "Eight", content: "Tab 8 Content" },
-      { tab: "Nine", content: "Tab 9 Content" },
-      { tab: "Ten", content: "Tab 10 Content" },
-    ],
     isActive: false,
   }),
   methods: {
@@ -227,7 +202,7 @@ export default {
   border-radius: 10px;
 }
 .product_infor {
-  height: 400px;
+  height: 600px;
   border-radius: 10px;
 }
 .infor {

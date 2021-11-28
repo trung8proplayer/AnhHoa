@@ -90,12 +90,12 @@
               </router-link>
               <router-link to="/account" class="hd" v-if="user">
                 <v-icon>mdi-account</v-icon>
-                <span>Chào, {{ user.Name }} {{ user.LastName }}</span>
+                <span>Chào, {{ user.lastName }}</span>
               </router-link>
-              <router-link to="/" @click="LogoutClick()" class="hd" v-if="user">
+              <a href="/" @click="LogoutClick()" class="hd" v-if="user">
                 <v-icon>mdi-logout</v-icon>
                 <span>Đăng xuất</span>
-              </router-link>
+              </a>
               <router-link to="/cart" class="hd cart">
                 <v-icon>mdi-cart-variant</v-icon>
                 <span>0</span>

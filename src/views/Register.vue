@@ -14,10 +14,10 @@
                 <hr />
                 <error v-if="error" :error="error" />
                 <p>
-                  <input type="text" placeholder="Tên" v-model="name" />
+                  <input type="text" placeholder="Tên" v-model="last_name" />
                 </p>
                 <p>
-                  <input type="text" placeholder="Họ" v-model="last_name" />
+                  <input type="text" placeholder="Họ" v-model="first_name" />
                 </p>
                 <p>
                   <input type="email" placeholder="Email" v-model="email" />
@@ -50,7 +50,7 @@ export default {
   },
   data: () => ({
     user: {
-      name: "",
+      first_name: "",
       last_name: "",
       email: "",
       password: "",
@@ -60,9 +60,9 @@ export default {
   methods: {
     async HandleSubmit() {
       try {
-        const response = await axios.post("/user", {
-          Name: this.name,
-          LastName: this.last_name,
+        const response = await axios.post("/user/register", {
+          lastName: this.last_name,
+          fistName: this.first_name,
           email: this.email,
           password: this.password,
         });

@@ -25,9 +25,11 @@ export default {
   name: "App",
   data: () => ({
     user: null,
+    users: [],
   }),
   async created() {
-    this.user = JSON.parse(localStorage.getItem("token"));
+    this.users = JSON.parse(localStorage.getItem("token"));
+    this.user = this.users.data[0]
   },
 };
 </script>

@@ -13,7 +13,7 @@
                 <h4><b>TÀI KHOẢN CỦA BẠN</b></h4>
                 <hr />
                 <hr />
-                <div v-if="!user">
+                <div v-if="user">
                   <v-row>
                     <v-col cols="8">
                       <h4>Lịch sử giao dịch</h4>
@@ -45,7 +45,7 @@
                     </v-col>
                   </v-row>
                 </div>
-                <h3 v-if="user">Bạn chưa login</h3>
+                <h3 v-if="!user">Bạn chưa login</h3>
               </div>
             </v-col>
           </v-row>

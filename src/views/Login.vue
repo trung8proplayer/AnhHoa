@@ -51,7 +51,11 @@ export default {
   methods: {
     async HandleSubmit() {
       try {
-        const response = await axios.get("/user/1");
+        const response = await axios.post("/user/login",
+        {
+          email: this.email,
+          password: this.password,
+        });
 
         localStorage.setItem("token", JSON.stringify(response));
         this.$router.push("/account");
