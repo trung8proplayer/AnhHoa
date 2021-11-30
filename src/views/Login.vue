@@ -47,6 +47,12 @@ export default {
     email: "",
     password: "",
     error: "",
+    user: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      id: ""
+    }
   }),
   methods: {
     async HandleSubmit() {
@@ -56,8 +62,11 @@ export default {
           email: this.email,
           password: this.password,
         });
-        
-        localStorage.setItem("token", JSON.stringify(response));
+        this.user.firstName = response.data[0].fistName;
+        this.user.lastName = response.data[0].lastName;
+        this.user.email = response.data[0].email;
+        this.user.id = response.data[0]._id;
+        localStorage.setItem("User", JSON.stringify(this.user));
         this.$router.push("/account");
       } catch (e) {
         this.error = "Email/Mật khẩu không hợp lệ!";

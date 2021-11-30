@@ -5,51 +5,49 @@
       <v-main>
         <div class="title_account">
           <p>
-            <b>{{ product.pro_name }}</b>
+            <b>{{ product.cake_name }}</b>
           </p>
         </div>
         <div class="form_account">
           <v-row class="inner">
             <v-col cols="4">
               <div class="product_photo">
-                <img :src="product.pro_img" class="photo" />
+                <img :src="product.cake_image" class="photo" />
               </div>
               <div class="product_photo_small">
-                <img :src="product.pro_img" class="photo" />
+                <img :src="product.cake_image" class="photo" />
               </div>
             </v-col>
             <v-col cols="8">
               <div class="product_infor">
                 <div class="infor">
-                  <h5>{{ product.pro_name }}</h5>
+                  <h5>{{ product.cake_name }}</h5>
                   <p>
-                    Mã sản phẩm: <span>{{ product.pro_id }}</span>
+                    Mã sản phẩm: <span>{{ product.cake_option }}</span>
                   </p>
                   <hr />
                   <p>
                     Giá
                     <span style="font-size: 20px; font-weight: bold">{{
-                      product.pro_price
-                    }}</span>
+                      formatCash(product.price.toString())
+                    }}₫</span>
                   </p>
-                  <!-- <form action=""> -->
                   
-                  <br />
                   <div>
                     <span>Số lượng</span>
                     <div class="soluong">
                       <button class="btn_minus" @click="minusNumber">
-                        <v-icon>mdi-minus</v-icon>
+                        <v-icon class="ic">mdi-minus</v-icon>
                       </button>
                       <span style="width: 30px; text-align: center">{{
                         number
                       }}</span>
                       <button class="btn_plus" @click="plusNumber">
-                        <v-icon>mdi-plus</v-icon>
+                        <v-icon class="ic">mdi-plus</v-icon>
                       </button>
                     </div>
                   </div>
-                  <div>
+                  <div class="product_tp">
                         <p>Thành phần chính:</p>
                         <p>- Gato</p>
                         <p>- Kem tươi vị rượu rum</p>
@@ -62,11 +60,9 @@
                         </p>
                   </div>
                   <div class="product_actions">
-                    <button class="btnAddtocart">THÊM VÀO GIỎ HÀNG</button>
+                    <button class="btnAddtocart" @click="addtoCart()">THÊM VÀO GIỎ HÀNG</button>
                     <button class="btnBuynow">MUA NGAY</button>
                   </div>
-                  
-                  <!--  </form> -->
                 </div>
               </div>
             </v-col>
@@ -74,20 +70,7 @@
           <v-row class="inner" style="padding-top: 0px">
             <v-col>
               <div>
-                <v-tabs v-model="tab" style="width: 340.32px">
-                  <v-tab>
-                    <button class="mtc">Mô tả chung</button>
-                  </v-tab>
-                  <v-tab>
                     <button class="mtc">Bình luận</button>
-                  </v-tab>
-                </v-tabs>
-
-                <v-tabs-items v-model="tab">
-                  <v-tab-item>
-                    
-                  </v-tab-item>
-                  <v-tab-item>
                     <v-card>
                       <v-card-text>
                         <h6>0 Comments</h6>
@@ -102,8 +85,6 @@
                         <hr />
                       </v-card-text>
                     </v-card>
-                  </v-tab-item>
-                </v-tabs-items>
               </div>
             </v-col>
           </v-row>
@@ -118,35 +99,38 @@ import axios from "axios";
 export default {
   name: "ProductDetail",
   data: () => ({
-    product: {
-      pro_img:
-        "//product.hstatic.net/1000313040/product/53_c2a32321b1c4417d89a727f048d06659_master.png",
-      pro_name: "FRUIT CAKE",
-      pro_id: "KT017",
-      pro_price: "220,000₫",
-    },
+    product: {},
     number: 1,
-    tab: null,
-    isActive: false,
+    id: "",
+    user: {}
   }),
+  async created(){
+    this.id = this.$route.params.id
+    const res = await axios.get(`cake/${this.id}`);
+    this.product = res.data[0];
+    console.log(this.product);
+    this.user = JSON.parse(localStorage.getItem("User"));
+  },
   methods: {
-    async getProductbyID() {
-      const res = await axios.get(`https://jsonplaceholder.typicode.com/posts`);
-      this.product = res.data;
-      console.log(this.product);
-    },
     minusNumber() {
       if (this.number > 1) this.number--;
     },
     plusNumber() {
       this.number++;
     },
-  } /* 
-    async created(){
-        const res = await axios.get("https://jsonplaceholder.typicode.com/posts/1")
-            this.product = res.data
-            console.log(this.product)
-    } */,
+    formatCash(str) {
+      return str.split('').reverse().reduce((prev, next, index) => {
+        return ((index % 3) ? next : (next + ',')) + prev
+      });
+    },
+    addtoCart(){
+      const response = axios.post('cart/create',{
+        cakeId: [this.product._id],
+        userId: this.user.id
+      })
+      alert(response);
+    }
+  } 
 };
 </script>
 
@@ -202,22 +186,11 @@ export default {
   border-radius: 10px;
 }
 .product_infor {
-  height: 600px;
+  height: 500px;
   border-radius: 10px;
 }
 .infor {
   padding: 30px 25px;
-}
-option {
-  border: solid 1px;
-  border-radius: 10px;
-  display: inline-block;
-  padding: 5px;
-  margin-right: 10px;
-  cursor: pointer;
-}
-option:active{
-    background-color: red;
 }
 .soluong {
   display: inline-flex;
@@ -230,6 +203,15 @@ option:active{
 }
 .btn_plus {
   border-left: 1px solid;
+}
+.ic{
+  color: black;
+}
+.product_tp{
+  padding-top: 10px;
+}
+.product_tp p{
+  margin-bottom: 0px;
 }
 .product_actions {
   padding-top: 30px;

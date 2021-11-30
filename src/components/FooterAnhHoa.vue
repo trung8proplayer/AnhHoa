@@ -127,7 +127,7 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 1;
+  z-index: 0;
   background: rgba(0, 0, 0, 0.6);
 }
 .ft_contact div {
@@ -143,7 +143,7 @@ export default {
 }
 .wrapper {
   position: relative;
-  z-index: 2;
+  z-index: 0;
 }
 .title {
   padding-top: 15px;

@@ -56,19 +56,31 @@ export default {
       password: "",
       error: "",
     },
+    user1: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      id: ""
+    }
   }),
   methods: {
     async HandleSubmit() {
       try {
+        if(this.email==null||this.last_name==null||this.password==null){
+          alert("Dữ liệu không hợp lệ!")
+        }
         const response = await axios.post("/user/register", {
           lastName: this.last_name,
           fistName: this.first_name,
           email: this.email,
           password: this.password,
         });
-        localStorage.setItem("token", JSON.stringify(response));
+        this.user1.firstName = response.data.fistName;
+        this.user1.lastName = response.data.lastName;
+        this.user1.email = response.data.email;
+        this.user1.id = response.data._id;
+        localStorage.setItem("User", JSON.stringify(this.user1));
         this.$router.push("/account");
-        location.reload();
       } catch (e) {
         this.error = "Dữ liệu không hợp lệ!";
       }

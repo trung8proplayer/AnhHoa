@@ -27,62 +27,7 @@
             />
           </h2>
         </div>
-        <v-row>
-          <v-col v-for="item in products.cakes" :key="item">
-            <v-card class="mx-auto" max-width="270px" >
-              <router-link
-                :to="{ name: 'ProductDetail', params: { cakeName: item.cake_name } }"
-              >
-                <v-img
-                  class="white--text align-end"
-                  height="255px"
-                  :src="item.cake_image"
-                >
-                </v-img>
-              </router-link>
-              <div class="title">
-                <router-link to="" class="title_name"
-                  ><h6 style="font-weight: bold">{{item.cake_name}}</h6></router-link
-                >
-                <small>{{item.cake_option}}</small>
-              </div>
-
-              <div>
-                <div class="product_price">{{formatCash(item.price.toString())}}₫</div>
-                <div class="product_actions">
-                  <button @click="[overlay=!overlay, showDetail(item._id)]">
-                    <v-icon style="color: white">mdi-cart</v-icon>
-                  </button>
-                  <v-overlay :z-index="zIndex" :value="overlay" :opacity="0.05" color="rgba(0, 0, 0, 0.4)">
-                     <span
-                        @click="overlay = false" class="btn_close"
-                      >
-                        <v-icon>mdi-close</v-icon>
-                      </span>
-                      <div class="detail_product">
-                        <v-row class="inner">
-                          <v-col cols="6">
-                            <div class="product_photo">
-                              <img :src="productDetail.cake_image" class="photo" />
-                            </div>
-                            <div class="product_photo_small">
-                              <img :src="productDetail.cake_image" class="photo" />
-                            </div>
-                          </v-col>
-                          <div>
-                            
-                          </div>
-                          <v-col>
-                            
-                          </v-col>
-                        </v-row>
-                      </div>
-                  </v-overlay>
-                </div>
-              </div>
-            </v-card>
-          </v-col>
-        </v-row>
+        <product-card :products="products"  />
         <v-row>
           <v-col>
             <div class="btn_view-more">
@@ -97,8 +42,12 @@
 
 <script>
 import axios from "axios";
+import ProductCard from './ProductCard.vue'
 export default {
   name: "HomeProducts",
+  components:{
+    ProductCard
+  },
   data: () => ({
     imgs: [
       "//theme.hstatic.net/1000313040/1000406925/14/ms_banner_img2.jpg?v=1757",
@@ -107,26 +56,11 @@ export default {
       "//theme.hstatic.net/1000313040/1000406925/14/ms_banner_img5.jpg?v=1757",
     ],
     products: [],
-    zIndex: 0,
-    overlay: false,
-    productDetail: {},
   }),
   async created() {
     const response = await axios.get("cake");
-    this.products = response.data;
-    console.log(this.products)
+    this.products = response.data.cakes;
   },
-  methods:{
-     formatCash(str) {
-      return str.split('').reverse().reduce((prev, next, index) => {
-        return ((index % 3) ? next : (next + ',')) + prev
-      });
-    },
-    showDetail(id){
-      this.productDetail = this.products.cakes.find(x=>x._id==id);
-    }
-      
-  }
 };
 </script>
 
@@ -171,7 +105,7 @@ export default {
   position: relative;
   z-index: 1;
 }
-.product_actions button {
+.product_actions .pro_cart {
   height: 40px;
   line-height: 40px;
   width: 45px;
@@ -218,6 +152,7 @@ export default {
 }
 .v-overlay{
   transition: 0.05s;
+  color: black;
 }
 .product_photo {
   height: 350px;
@@ -233,5 +168,36 @@ export default {
   margin-top: 10px;
   width: 100px;
   border-radius: 10px;
+}.infor {
+  padding: 20px 0px;
+}
+.soluong {
+  display: inline-flex;
+  margin-left: 10px;
+  border: solid 1px;
+  border-radius: 5px;
+}
+.btn_minus{
+  border-right: 1px solid;
+}
+.btn_plus{
+  border-left: 1px solid;
+}
+.ic{
+  color: black;
+}
+.btnAddtocart {
+  background: #3d1a1a;
+  color: #fff;
+  padding: 5px 10px;
+}
+.addCart{
+  padding-top: 30px;
+}
+.txt_detail{
+  margin-top: 10px;
+}
+.txt_detail a{
+  color: #3d1a1a;
 }
 </style>

@@ -25,16 +25,13 @@ export default {
   name: "App",
   data: () => ({
     user: null,
-    users: [],
   }),
   async created() {
-    this.users = JSON.parse(localStorage.getItem("token"));
-    this.user = this.users.data[0]
+    this.user = JSON.parse(localStorage.getItem("User"));
   },
   methods:{
     getUser(){
-      this.users = JSON.parse(localStorage.getItem("token"));
-      this.user = this.users.data[0]
+      this.user = JSON.parse(localStorage.getItem("User"));
     }
   }
 };

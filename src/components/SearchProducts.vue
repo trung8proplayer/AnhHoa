@@ -12,9 +12,10 @@
           <v-row class="inner">
             <v-col>
               <div>
-                <h4><b>TÌM KIẾM</b></h4>
+                <h4><b>KẾT QUẢ TÌM KIẾM CHO "{{key_search.toUpperCase()}}":</b></h4>
                 <hr />
                 <hr />
+               <product-card :products="products"  />
               </div>
             </v-col>
           </v-row>
@@ -26,21 +27,23 @@
 
 
 <script>
+import axios from 'axios';
+import ProductCard from './ProductCard.vue'
 export default {
   name: "SearchProducts",
+  components:{
+    ProductCard
+  },
   data: () => ({
     key_search: "",
+    products: [],
   }),
-  created() {
-    console.log(this.$route.query);
-    this.key_search = this.$route.query.key;
+  async created() {
+    this.key_search = this.$route.query.query;
+    const response = await axios.get('cake/search',{params:{query: this.key_search}});
+    this.products = response.data.cakes;
+    console.log(this.products)
   },
-  watch: {
-    $route() {
-      this.key_search = this.$route.query.key;
-    },
-  },
-  methods: {},
 };
 </script>
 

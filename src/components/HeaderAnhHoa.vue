@@ -262,11 +262,11 @@ export default {
   }),
   methods: {
     LogoutClick() {
-      localStorage.removeItem("token");
+      localStorage.removeItem("User");
     },
     HandleSubmit() {
-      this.$router.push("/search-products?key=" + this.key_search);
-      console.log(this.$route);
+      this.$router.push("/search-products?query=" + this.key_search);
+      location.reload();
     },
   },
 };
