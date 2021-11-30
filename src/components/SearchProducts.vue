@@ -42,7 +42,13 @@ export default {
     this.key_search = this.$route.query.query;
     const response = await axios.get('cake/search',{params:{query: this.key_search}});
     this.products = response.data.cakes;
-    console.log(this.products)
+  },
+   watch:{
+    async $route(){
+      this.key_search = this.$route.query.query;
+      const response = await axios.get('cake/search',{params:{query: this.key_search}});
+      this.products = response.data.cakes;
+    }
   },
 };
 </script>

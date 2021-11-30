@@ -260,13 +260,18 @@ export default {
     cake: ["Cookies", "Mini Cake"],
     key_search: "",
   }),
+  watch:{
+    $route(){
+      this.key_search = this.$route.query.query;
+    }
+  },
   methods: {
     LogoutClick() {
       localStorage.removeItem("User");
     },
     HandleSubmit() {
       this.$router.push("/search-products?query=" + this.key_search);
-      location.reload();
+      this.$emit('Search');
     },
   },
 };
