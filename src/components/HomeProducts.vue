@@ -19,7 +19,7 @@
     <v-main style="background-color: #f8f2e8">
       <v-container class="products">
         <div class="products_title">
-          <h3>BỘ SƯU TẬP BÁNH KEM 20/11</h3>
+          <h3>GATEAUX KEM TƯƠI</h3>
           <h2>
             <img
               src="//theme.hstatic.net/1000313040/1000406925/14/home_line_collection1.png?v=1757"

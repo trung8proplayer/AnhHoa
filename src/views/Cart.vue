@@ -24,16 +24,15 @@
                   </v-row>
                   <v-row
                     class="name_column"
-                    v-for="item in products"
+                    v-for="item in cart"
                     :key="item"
                   >
                     <v-col cols="7">
                       <v-row>
-                        <v-col><img :src="item.pro_img" width="75%" /></v-col>
+                        <v-col><img :src="item.cakes.cake_image" width="75%" /></v-col>
                         <v-col>
                           <div class="item_column">
-                            <h4>{{ item.pro_name }}</h4>
-                            <p>{{ item.pro_width }} cm</p>
+                            <h4>{{ item.cakes.cake_name }}</h4>
                             <button>Xóa</button>
                           </div>
                         </v-col>
@@ -41,17 +40,17 @@
                     </v-col>
                     <v-col>
                       <div class="item_column">
-                        <h4>{{ item.pro_price }}</h4>
+                        <h4>{{ formatCash(item.cakes.price.toString()) }}₫</h4>
                       </div>
                     </v-col>
                     <v-col>
                       <div class="item_column">
-                        <h5>{{ item.pro_num }}</h5>
+                        <h5>{{ item.quantity }}</h5>
                       </div>
                     </v-col>
                     <v-col>
                       <div class="item_column">
-                        <h4>{{ item.pro_total }}</h4>
+                        <h4>{{ formatCash((item.cakes.price * item.quantity).toString()) }}₫</h4>
                       </div>
                     </v-col>
                   </v-row>
@@ -99,7 +98,14 @@ export default {
     this.userId = JSON.parse(localStorage.getItem("User")).id;
     const response = await axios.get('cart/' + this.userId);
     this.cart = response.data;
-    console.log(this.products)
+    console.log(this.cart);
+  },
+  methods:{
+    formatCash(str) {
+      return str.split('').reverse().reduce((prev, next, index) => {
+        return ((index % 3) ? next : (next + ',')) + prev
+      });
+    }
   }
 };
 </script>

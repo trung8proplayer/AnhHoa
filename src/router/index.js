@@ -11,6 +11,9 @@ import Checkout from '../Checkout.vue'
 import StoreProduct from '../views/StoreProduct.vue'
 import News from '../views/News.vue'
 import Promotions from '../views/Promotions.vue'
+import BirthdayCake from '../views/BirthdayCake.vue'
+import BreadCake from '../views/BreadCake.vue'
+import CookieCake from '../views/CookieCake.vue'
 
 Vue.use(VueRouter)
 
@@ -77,6 +80,21 @@ const routes = [
     path: '/promotions',
     name: 'Promotions',
     component: Promotions
+  },
+  {
+    path: '/banh-sinh-nhat',
+    name: 'BirthdayCake',
+    component: BirthdayCake
+  },
+  {
+    path: '/banh-my-banh-man',
+    name: 'BreadCake',
+    component: BreadCake
+  },
+  {
+    path: '/cookiecake-minicake',
+    name: 'CookieCake',
+    component: CookieCake
   },
 ]
 

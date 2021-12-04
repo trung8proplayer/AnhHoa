@@ -1,6 +1,7 @@
 <template>
     <div class="banner_account">
     <div>
+      <div class="overlay_account"></div>
       <v-main>
         <div class="title_account">
           <p><b>HỆ THỐNG CỬA HÀNG</b></p>
@@ -57,7 +58,6 @@ export default {
   async created() {
     const response = await axios.get("store");
     this.products = response.data;
-    console.log(this.products)
   },
 }
 </script>
@@ -73,6 +73,15 @@ export default {
 }
 .name-store{
   font-size: 20px;
+}
+.overlay_account {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  background: rgba(0, 0, 0, 0.5);
 }
 .title_account {
   text-align: center;
