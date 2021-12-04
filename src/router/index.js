@@ -8,6 +8,9 @@ import Cart from '../views/Cart.vue'
 import SearchProducts from '../components/SearchProducts.vue'
 import ProductDetail from '../views/ProductDetail.vue'
 import Checkout from '../Checkout.vue'
+import StoreProduct from '../views/StoreProduct.vue'
+import News from '../views/News.vue'
+import Promotions from '../views/Promotions.vue'
 
 Vue.use(VueRouter)
 
@@ -59,6 +62,21 @@ const routes = [
     path: '/checkout',
     name: 'Checkout',
     component: Checkout
+  },
+  {
+    path: '/store',
+    name: 'StoreProduct',
+    component: StoreProduct
+  },
+  {
+    path: '/news',
+    name: 'News',
+    component: News
+  },
+  {
+    path: '/promotions',
+    name: 'Promotions',
+    component: Promotions
   },
 ]
 
