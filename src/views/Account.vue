@@ -94,7 +94,7 @@ export default {
     },
   }),
   created(){
-    this.$emit("getUser")
+    this.$emit("getUser");
   }
 };
 </script>

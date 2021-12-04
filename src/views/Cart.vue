@@ -86,40 +86,21 @@
 
 
 <script>
+import axios from 'axios';
 export default {
   name: "Cart",
   props: ["user"],
   data: () => ({
-    products: [
-      {
-        pro_img:
-          "https://product.hstatic.net/1000313040/product/53_c2a32321b1c4417d89a727f048d06659_large.png",
-        pro_name: "FRUIT CAKE",
-        pro_width: "19",
-        pro_price: "220,000₫",
-        pro_num: 1,
-        pro_total: "220,000₫",
-      },
-      {
-        pro_img:
-          "https://product.hstatic.net/1000313040/product/53_c2a32321b1c4417d89a727f048d06659_large.png",
-        pro_name: "TIRAMISU VUÔNG",
-        pro_width: "19",
-        pro_price: "220,000₫",
-        pro_num: 1,
-        pro_total: "220,000₫",
-      },
-      {
-        pro_img:
-          "https://product.hstatic.net/1000313040/product/53_c2a32321b1c4417d89a727f048d06659_large.png",
-        pro_name: "BLUE BERRY CHOCOLATE CAKE",
-        pro_width: "20x20",
-        pro_price: "220,000₫",
-        pro_num: 1,
-        pro_total: "220,000₫",
-      },
-    ],
+    userId: "",
+    cart: {},
+    
   }),
+  async created(){
+    this.userId = JSON.parse(localStorage.getItem("User")).id;
+    const response = await axios.get('cart/' + this.userId);
+    this.cart = response.data;
+    console.log(this.products)
+  }
 };
 </script>
 
