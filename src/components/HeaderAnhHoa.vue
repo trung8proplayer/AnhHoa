@@ -80,7 +80,7 @@
                 <v-icon>mdi-phone</v-icon>
                 <span>0961452578</span>
               </router-link>
-              <router-link to="" class="hd">
+              <router-link to="/store" class="hd">
                 <v-icon>mdi-office-building</v-icon>
                 <span>Hệ thống 14 cửa hàng</span>
               </router-link>
@@ -210,10 +210,10 @@
                 </a>
               </li>
               <li>
-                <a href="">TIN TỨC</a>
+                <a href="/news">TIN TỨC</a>
               </li>
               <li>
-                <a href="">KHUYẾN MẠI HOT</a>
+                <a href="/promotions">KHUYẾN MẠI HOT</a>
               </li>
             </ul>
           </div>
