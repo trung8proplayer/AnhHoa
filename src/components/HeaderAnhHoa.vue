@@ -210,10 +210,10 @@
                 </a>
               </li>
               <li>
-                <a href="/news">TIN TỨC</a>
+                <router-link to="/news">TIN TỨC</router-link>
               </li>
               <li>
-                <a href="/promotions">KHUYẾN MẠI HOT</a>
+                <router-link to="/promotions">KHUYẾN MẠI HOT</router-link>
               </li>
             </ul>
           </div>
