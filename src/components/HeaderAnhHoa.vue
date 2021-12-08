@@ -5,7 +5,7 @@
         <div class="nav_bar">
           <div class="nav">
             <div class="logo">
-              <router-link to="/" class="logo_img">
+              <router-link to="/admin" class="logo_img">
                 <img
                   src="https://theme.hstatic.net/1000313040/1000406925/14/logo.png?v=1734"
                   style="max-width: 100%"
