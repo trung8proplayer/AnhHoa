@@ -72,7 +72,6 @@ export default {
     this.userId = JSON.parse(localStorage.getItem('User')).id;
     const response = await axios.get('order/'+this.userId)
     this.order = response.data
-    console.log(response)
   },
   methods:{
     format_date(value){

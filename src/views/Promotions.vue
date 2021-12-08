@@ -10,12 +10,12 @@
             <v-row class="inner">
                     <v-col v-for="item in products" :key="item">
                         <v-card class="mx-auto" max-width="270px" >
+                    
                         <router-link
                             :to="{ name: 'PromotionDetail', params: { id: item._id } }"
                         >
                             <v-img
                             class="white--text align-end"
-                            height="255px"
                             :src="item.promotion_image"
                             >
                             </v-img>
