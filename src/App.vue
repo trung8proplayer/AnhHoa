@@ -1,13 +1,13 @@
 <template>
   <v-app>
     <v-main>
-      <header-anh-hoa :user="user" v-if="this.$route.fullPath!='/checkout' && this.$route.fullPath!='/admin'" />
+      <header-anh-hoa :user="user" v-if="this.$route.fullPath!='/checkout' && this.$route.fullPath.toString().substring(0,6) != '/admin' " />
       <router-view @getUser="getUser" :user="user" />
-      <footer-anh-hoa v-if="this.$route.fullPath!='/checkout' && this.$route.fullPath!='/admin'" />
-      <div id="hotline" v-if="this.$route.fullPath!='/checkout' && this.$route.fullPath!='/admin'">
+      <footer-anh-hoa v-if="this.$route.fullPath!='/checkout' && this.$route.fullPath.toString().substring(0,6) != '/admin'!='/admin'" />
+      <div id="hotline" v-if="this.$route.fullPath!='/checkout' && this.$route.fullPath.toString().substring(0,6) != '/admin'!='/admin'">
         <a href=""><v-icon style="color: white">mdi-phone</v-icon></a>
       </div>
-      <div id="messenger" v-if="this.$route.fullPath!='/checkout' && this.$route.fullPath!='/admin'">
+      <div id="messenger" v-if="this.$route.fullPath!='/checkout' && this.$route.fullPath.toString().substring(0,6) != '/admin'!='/admin'">
         <a href=""
           ><v-icon style="color: white">mdi-facebook-messenger</v-icon></a
         >
@@ -26,7 +26,7 @@ export default {
   data: () => ({
     user: null,
   }),
-  async created() {
+  created() {
     this.user = JSON.parse(localStorage.getItem("User"));
   },
   methods:{

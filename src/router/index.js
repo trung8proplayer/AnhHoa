@@ -7,7 +7,7 @@ import Register from '../views/Register.vue'
 import Cart from '../views/Cart.vue'
 import SearchProducts from '../components/SearchProducts.vue'
 import ProductDetail from '../views/ProductDetail.vue'
-import Checkout from '../Checkout.vue'
+import Checkout from '../views/Checkout.vue'
 import StoreProduct from '../views/StoreProduct.vue'
 import News from '../views/News.vue'
 import Promotions from '../views/Promotions.vue'
@@ -18,7 +18,7 @@ import BirthdayCake from '../views/BirthdayCake.vue'
 import BreadCake from '../views/BreadCake.vue'
 import CookieCake from '../views/CookieCake.vue'
 import HighlightsCake from '../views/HighlightsCake.vue'
-
+import AdminLayout from '../ADMIN/AdminLayout.vue'
 
 Vue.use(VueRouter)
 
@@ -121,6 +121,11 @@ const routes = [
     path: '/highlights-cake',
     name: 'HighlightsCake',
     component: HighlightsCake
+  },
+  {
+    path: '/admin-layout',
+    name: 'AdminLayout',
+    component: AdminLayout
   },
 ]
 

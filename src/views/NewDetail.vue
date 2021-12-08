@@ -13,8 +13,6 @@
                        <h3 class="new-title"> {{product.title}}</h3>
                        <v-img
                             class="white--text align-end"
-                            height="600px"
-                            width="600px"
                             :src="product.new_image"
                             >
                         </v-img>
