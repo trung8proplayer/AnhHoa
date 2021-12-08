@@ -76,7 +76,7 @@
             </div>
 
             <div class="contact">
-              <router-link to="/admin" class="hd">
+              <router-link to="" class="hd">
                 <v-icon>mdi-phone</v-icon>
                 <span>0961452578</span>
               </router-link>
