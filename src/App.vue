@@ -1,13 +1,13 @@
 <template>
   <v-app>
     <v-main>
-      <header-anh-hoa :user="user" />
+      <header-anh-hoa :user="user" v-if="this.$route.fullPath!='/checkout'" />
       <router-view @getUser="getUser" :user="user" />
-      <footer-anh-hoa />
-      <div id="hotline">
+      <footer-anh-hoa v-if="this.$route.fullPath!='/checkout'" />
+      <div id="hotline" v-if="this.$route.fullPath!='/checkout'">
         <a href=""><v-icon style="color: white">mdi-phone</v-icon></a>
       </div>
-      <div id="messenger">
+      <div id="messenger" v-if="this.$route.fullPath!='/checkout'">
         <a href=""
           ><v-icon style="color: white">mdi-facebook-messenger</v-icon></a
         >
