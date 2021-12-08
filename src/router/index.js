@@ -14,6 +14,7 @@ import Promotions from '../views/Promotions.vue'
 import BirthdayCake from '../views/BirthdayCake.vue'
 import BreadCake from '../views/BreadCake.vue'
 import CookieCake from '../views/CookieCake.vue'
+import HighlightsCake from '../views/HighlightsCake.vue'
 
 Vue.use(VueRouter)
 
@@ -95,6 +96,11 @@ const routes = [
     path: '/cookiecake-minicake',
     name: 'CookieCake',
     component: CookieCake
+  },
+  {
+    path: '/highlights-cake',
+    name: 'HighlightsCake',
+    component: HighlightsCake
   },
 ]
 

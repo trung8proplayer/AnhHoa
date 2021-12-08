@@ -9,7 +9,7 @@
         <div class="form_account">
           <h4 style="text-align: center; padding-top: 50px"><b>BÁNH MỲ VÀ BÁNH MẶN</b></h4>
           <v-row class="inner">
-            <v-col offset="3">
+            <v-col>
               <product-card :products="products"  />
             </v-col>
           </v-row>

@@ -98,7 +98,7 @@
               </a>
               <router-link to="/cart" class="hd cart">
                 <v-icon>mdi-cart-variant</v-icon>
-                <span>0</span>
+                <span>Giỏ hàng</span>
               </router-link>
             </div>
             <div class="contact2">

@@ -13,7 +13,7 @@
                 <h4><b>GIỎ HÀNG</b></h4>
                 <hr />
                 <hr />
-                <div>
+                <div v-if="user">
                   <v-row class="name_column">
                     <v-col cols="7">
                       <p>Thông tin chi tiết sản phẩm</p>
@@ -33,7 +33,7 @@
                         <v-col>
                           <div class="item_column">
                             <h4>{{ item.cakes.cake_name }}</h4>
-                            <button>Xóa</button>
+                            <button @click.prevent="RemoveCake(item.cakes._id)">Xóa</button>
                           </div>
                         </v-col>
                       </v-row>
@@ -45,7 +45,7 @@
                     </v-col>
                     <v-col>
                       <div class="item_column">
-                        <h5>{{ item.quantity }}</h5>
+                        <h5>{{item.quantity}}</h5>
                       </div>
                     </v-col>
                     <v-col>
@@ -56,9 +56,12 @@
                   </v-row>
                 </div>
               </div>
+              <div v-if="!user">
+                <p>Bạn cần đăng nhập để xem giỏ hàng!</p>
+              </div>
             </v-col>
           </v-row>
-          <v-row class="inner2">
+          <v-row class="inner2" v-if="user">
             <v-col cols="8">
               <p>
                 <b
@@ -71,10 +74,9 @@
             </v-col>
             <v-col cols="4" class="total">
               Tổng tiền
-              <span style="font-size: 1.5rem; font-weight: bold">660,000₫</span>
+              <span style="font-size: 1.5rem; font-weight: bold">{{formatCash(total.toString())}}₫</span>
               <p><i>Vận chuyển</i></p>
-              <button class="update_cart">Cập nhật</button>
-              <button class="checkout_cart">Thanh toán</button>
+              <button class="checkout_cart" @click="checkout()">Thanh toán</button>
             </v-col>
           </v-row>
         </div>
@@ -90,20 +92,40 @@ export default {
   name: "Cart",
   props: ["user"],
   data: () => ({
-    userId: "",
-    cart: {},
-    
+    cart: [],
+    total: 0,
+    userId: ""
   }),
   async created(){
     this.userId = JSON.parse(localStorage.getItem("User")).id;
     const response = await axios.get('cart/' + this.userId);
     this.cart = response.data;
-    console.log(this.cart);
+    this.cart.forEach(element => {
+    this.total += element.cakes.price * element.quantity
+    });
   },
   methods:{
     formatCash(str) {
       return str.split('').reverse().reduce((prev, next, index) => {
         return ((index % 3) ? next : (next + ',')) + prev
+      });
+    },
+    checkout(){
+      this.$router.push("/checkout");
+    },
+    RemoveCake(cakeid){
+      axios.delete('cart/delete',{
+      data:{
+              userId : this.userId,
+              cakeId: cakeid
+            }
+      }).then(()=>{
+        for (const [index, item] of this.cart.entries()) {
+          if(item.cakes._id==cakeid){
+            this.cart.splice(index,1);
+            break;
+          }
+        }
       });
     }
   }

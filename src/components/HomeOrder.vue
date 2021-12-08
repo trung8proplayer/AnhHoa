@@ -18,23 +18,26 @@
               type="text"
               placeholder="Họ tên của bạn"
               class="order_input"
+              v-model="name"
             />
             <label for="contactEmail">Địa chỉ email của bạn</label>
             <input
               type="text"
               placeholder="Địa chỉ email của bạn"
               class="order_input"
+              v-model="email"
             />
             <label for="contactPhone">Số điện thoại của bạn</label>
             <input
               type="text"
               placeholder="Số điện thoại của bạn"
               class="order_input"
+              v-model="phone"
             />
             <label for="contactContent">Nội dung</label>
-            <textarea rows="5" placeholder="Nội dung"></textarea>
+            <textarea rows="5" placeholder="Nội dung" v-model="content"></textarea>
             <div style="text-align: center">
-              <button type="submit" class="order_btn">ĐẶT NGAY</button>
+              <button class="order_btn" @click="order()">ĐẶT NGAY</button>
             </div>
           </v-form>
         </div>
@@ -43,9 +46,27 @@
   </div>
 </template>
 <script>
+import axios from 'axios';
 export default {
   name: "HomeOrder",
-  data: () => ({}),
+  data: () => ({
+    name: "",
+    email: "",
+    phone: "",
+    content: "",
+  }),
+  methods:{
+    order(){
+      console.log(this.name,this.email,this.phone,this.content);
+      axios.post('perorder/create',{
+        full_name : this.name,
+        email : this.email,
+        phone : this.phone,
+        content: this.content
+      });
+      alert("Gửi liên hệ thành công.")
+    }
+  }
 };
 </script>
 

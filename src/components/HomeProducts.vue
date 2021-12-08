@@ -19,7 +19,7 @@
     <v-main style="background-color: #f8f2e8">
       <v-container class="products">
         <div class="products_title">
-          <h3>GATEAUX KEM TƯƠI</h3>
+          <h3>DANH SÁCH BÁNH TIÊU BIỂU</h3>
           <h2>
             <img
               src="//theme.hstatic.net/1000313040/1000406925/14/home_line_collection1.png?v=1757"
@@ -31,7 +31,7 @@
         <v-row>
           <v-col>
             <div class="btn_view-more">
-              <a href="">Xem thêm</a>
+              <router-link to="/highlights-cake">Xem thêm</router-link>
             </div>
           </v-col>
         </v-row>
@@ -59,7 +59,9 @@ export default {
   }),
   async created() {
     const response = await axios.get("cake");
-    this.products = response.data.cakes;
+    for (let index = 0; index < 12; index++) {
+      this.products.push(response.data[index])
+    }
   },
 };
 </script>

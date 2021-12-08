@@ -33,7 +33,7 @@
                         <v-icon>mdi-close</v-icon>
                       </span>
                       <div class="detail_product">
-                        <v-row class="inner">
+                        <v-row>
                           <v-col cols="6">
                             <div class="product_photo">
                               <img :src="productDetail.cake_image" class="photo" />
@@ -70,7 +70,7 @@
                                     </button>
                                   </div>
                                   <div class="addCart">
-                                    <button class="btnAddtocart">THÊM VÀO GIỎ HÀNG</button>
+                                    <button class="btnAddtocart" @click="addtoCart()">THÊM VÀO GIỎ HÀNG</button>
                                     <p class="txt_detail">
                                       <router-link :to="{ name: 'ProductDetail', params: { id: item._id} }">hoặc xem chi tiết</router-link>
                                     </p>
@@ -91,6 +91,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "Product",
   props: {
@@ -104,7 +105,7 @@ export default {
     number: 1
   }),
   created() {
-    
+    this.user = JSON.parse(localStorage.getItem("User"));
   },
   methods:{
      formatCash(str) {
@@ -121,7 +122,14 @@ export default {
     plusNumber() {
       this.number++;
     },
-      
+    async addtoCart(){
+      await axios.post('cart/create',{
+        cakeId: this.productDetail._id,
+        userId: this.user.id,
+        quantity: this.number
+      });
+      alert("Đã thêm vào giỏ của bạn!");
+    },
   }
 };
 </script>
@@ -208,18 +216,15 @@ export default {
 }
 .product_photo {
   height: 350px;
-  border-radius: 10px;
 }
 .photo {
   width: 90%;
   height: 90%;
   margin: 5%;
-  border-radius: 10px;
 }
 .product_photo_small {
-  margin-top: 10px;
+  margin: 0px 15px;
   width: 100px;
-  border-radius: 10px;
 }.infor {
   padding: 20px 0px;
 }

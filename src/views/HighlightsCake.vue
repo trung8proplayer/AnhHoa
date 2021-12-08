@@ -4,10 +4,10 @@
       <div class="overlay_account"></div>
       <v-main>
         <div class="title_account">
-          <p><b>COOKIES & MINICAKE</b></p>
+          <p><b>DANH SÁCH BÁNH TIÊU BIỂU</b></p>
         </div>
         <div class="form_account">
-          <h4 style="text-align: center; padding-top: 50px"><b>COOKIES & MINICAKE</b></h4>
+          <h4 style="text-align: center; padding-top: 50px"><b>DANH SÁCH BÁNH TIÊU BIỂU</b></h4>
           <v-row class="inner">
             <v-col>
               <product-card :products="products"  />
@@ -22,7 +22,7 @@
 import axios from 'axios';
 import ProductCard from '../components/ProductCard.vue'
 export default {
-  name: "CookieCake",
+  name: "HighlightsCake",
   components:{
     ProductCard
   },
@@ -30,8 +30,8 @@ export default {
     products: [],
   }),
   async created(){
-      const response = await axios.get('cake/type?query=cookies');
-      this.products = response.data.cakes;
+      const response = await axios.get('cake');
+      this.products = response.data;
   },
   methods: {
   },

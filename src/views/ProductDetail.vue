@@ -55,7 +55,7 @@
                   </div>
                   <div class="product_actions">
                     <button class="btnAddtocart" @click="addtoCart()">THÊM VÀO GIỎ HÀNG</button>
-                    <button class="btnBuynow">MUA NGAY</button>
+                    <button class="btnBuynow" @click="addtoCart2()">MUA NGAY</button>
                   </div>
                 </div>
               </div>
@@ -123,6 +123,14 @@ export default {
         quantity: this.number
       });
       alert("Đã thêm vào giỏ của bạn!");
+    },
+    async addtoCart2(){
+      await axios.post('cart/create',{
+        cakeId: this.product._id,
+        userId: this.user.id,
+        quantity: this.number
+      });
+      this.$router.push("/cart");
     }
   } 
 };

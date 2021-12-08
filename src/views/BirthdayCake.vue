@@ -9,7 +9,7 @@
         <div class="form_account">
           <h4 style="text-align: center; padding-top: 50px"><b>BÁNH SINH NHẬT</b></h4>
           <v-row class="inner">
-            <v-col offset="3">
+            <v-col>
               <product-card :products="products"  />
             </v-col>
           </v-row>
@@ -32,7 +32,6 @@ export default {
   async created(){
       const response = await axios.get('cake/type?query=bánh sinh nhật');
       this.products = response.data.cakes;
-      console.log(response.data);
   },
   methods: {
   },
