@@ -11,7 +11,7 @@
                     <v-col v-for="item in products.promotions" :key="item">
                         <v-card class="mx-auto" max-width="270px" >
                         <router-link
-                            :to="{ name: 'ProductDetail', params: { promotionName: item.promotion_name } }"
+                            :to="{ name: 'PromotionDetail', params: { id: item._id } }"
                         >
                             <v-img
                             class="white--text align-end"
@@ -21,7 +21,7 @@
                             </v-img>
                         </router-link>
                         <div class="title">
-                            <router-link to="" class="title_name"
+                            <router-link class="title_name" :to="{ name: 'PromotionDetail', params: { id: item._id } }"
                             ><h6 style="font-weight: bold">{{item.promotion_name}}</h6></router-link
                             >
                             <small class="promotion-content">{{item.content}}</small>

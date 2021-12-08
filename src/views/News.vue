@@ -11,7 +11,7 @@
                     <v-col cols="4" v-for="item in products" :key="item">
                         <v-card class="mx-auto">
                         <router-link
-                            :to="{ name: 'ProductDetail', params: { newTitle: item.new_title } }"
+                            :to="{ name: 'NewDetail', params: {  id: item._id } }"
                         >
                             <v-img
                             class="white--text align-end"
@@ -20,7 +20,7 @@
                             </v-img>
                         </router-link>
                         <div class="title">
-                            <router-link to="" class="title_name"
+                            <router-link class="title_name" :to="{ name: 'NewDetail', params: {  id: item._id } }"
                             ><h6 style="font-weight: bold">{{item.title}}</h6></router-link
                             >
                             <small class="new-content">{{item.content}}</small>
