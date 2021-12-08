@@ -3,11 +3,11 @@
     <v-main>
       <header-anh-hoa :user="user" v-if="this.$route.fullPath!='/checkout' && this.$route.fullPath.toString().substring(0,6) != '/admin' " />
       <router-view @getUser="getUser" :user="user" />
-      <footer-anh-hoa v-if="this.$route.fullPath!='/checkout' && this.$route.fullPath.toString().substring(0,6) != '/admin'!='/admin'" />
-      <div id="hotline" v-if="this.$route.fullPath!='/checkout' && this.$route.fullPath.toString().substring(0,6) != '/admin'!='/admin'">
+      <footer-anh-hoa v-if="this.$route.fullPath!='/checkout' && this.$route.fullPath.toString().substring(0,6) != '/admin'" />
+      <div id="hotline" v-if="this.$route.fullPath!='/checkout' && this.$route.fullPath.toString().substring(0,6) != '/admin'">
         <a href=""><v-icon style="color: white">mdi-phone</v-icon></a>
       </div>
-      <div id="messenger" v-if="this.$route.fullPath!='/checkout' && this.$route.fullPath.toString().substring(0,6) != '/admin'!='/admin'">
+      <div id="messenger" v-if="this.$route.fullPath!='/checkout' && this.$route.fullPath.toString().substring(0,6) != '/admin'">
         <a href=""
           ><v-icon style="color: white">mdi-facebook-messenger</v-icon></a
         >

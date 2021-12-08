@@ -19,6 +19,8 @@ import BreadCake from '../views/BreadCake.vue'
 import CookieCake from '../views/CookieCake.vue'
 import HighlightsCake from '../views/HighlightsCake.vue'
 import AdminLayout from '../ADMIN/AdminLayout.vue'
+import AdminNew from '../ADMIN/AdminNew.vue'
+import AdminPromotion from '../ADMIN/AdminPromotion.vue'
 
 Vue.use(VueRouter)
 
@@ -126,6 +128,16 @@ const routes = [
     path: '/admin-layout',
     name: 'AdminLayout',
     component: AdminLayout
+  },
+  {
+    path: '/admin/news',
+    name: 'AdminNew',
+    component: AdminNew
+  },
+  {
+    path: '/admin/promotions',
+    name: 'AdminPromotion',
+    component: AdminPromotion
   },
 ]
 
