@@ -11,6 +11,9 @@ import Checkout from '../Checkout.vue'
 import StoreProduct from '../views/StoreProduct.vue'
 import News from '../views/News.vue'
 import Promotions from '../views/Promotions.vue'
+import PromotionDetail from '../views/PromotionDetail.vue'
+import NewDetail from '../views/NewDetail.vue'
+import AdminProduct from '../ADMIN/AdminProduct.vue'
 
 Vue.use(VueRouter)
 
@@ -77,6 +80,21 @@ const routes = [
     path: '/promotions',
     name: 'Promotions',
     component: Promotions
+  },
+  {
+    path: '/new-detail/:id',
+    name: 'NewDetail',
+    component: NewDetail
+  },
+  {
+    path: '/promotion-detail/:id',
+    name: 'PromotionDetail',
+    component: PromotionDetail
+  },
+  {
+    path: '/admin',
+    name: 'AdminProduct',
+    component: AdminProduct
   },
 ]
 
