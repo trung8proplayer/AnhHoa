@@ -25,27 +25,28 @@
                           <th><b>Tình trạng vận chuyển</b></th>
                           <th><b>Tổng</b></th>
                         </tr>
-                        <tr v-for="dh in donhangs" :key="dh.donhang">
-                          <td>{{ dh.donhang }}</td>
-                          <td>{{ dh.ngay }}</td>
-                          <td>{{ dh.tttt }}</td>
-                          <td>{{ dh.ttvc }}</td>
-                          <td>{{ dh.tong }}</td>
+                        <tr v-for="item in order" :key="item">
+                          <td>{{item.name}}</td>
+                          <td>{{format_date(item.createdAt)}}</td>
+                          <td>{{item.status}}</td>
+                          <td>{{item.transport}}</td>
+                          <td>{{formatCash(item.total.toString())}}₫</td>
                         </tr>
                       </table>
                     </v-col>
                     <v-col cols="4">
                       <h4>Thông tin tài khoản</h4>
-                      <b>{{ users.name }} {{ users.last_name }}</b>
-                      <p>{{ users.cong_ty }}</p>
-                      <p>{{ users.dia_chi }}</p>
-                      <p>{{ users.quoc_gia }}</p>
-                      <p>{{ users.sdt }}</p>
-                      <a href="" style="color: brown">Xem địa chỉ</a>
+                      <b>{{ user.firstName }} {{ user.lastName }}</b>
+                      <div>
+                        <p>Email: {{user.email}}</p>
+                      </div>
                     </v-col>
                   </v-row>
                 </div>
-                <h3 v-if="!user">Bạn chưa login</h3>
+                <div  v-if="!user">
+                  <h3>Bạn chưa login!</h3>
+                  <router-link to="/account/login"><h4>Đăng nhập</h4></router-link>
+                </div>
               </div>
             </v-col>
           </v-row>
@@ -57,44 +58,33 @@
 
 
 <script>
+import axios from 'axios';
+import moment from 'moment';
 export default {
   name: "Cart",
   props: ["user"],
   data: () => ({
-    donhangs: [
-      {
-        donhang: "AH-109857",
-        ngay: "10/14/2021 13:09:39",
-        tttt: "pending",
-        ttvc: "not fulfilled",
-        tong: "1,020,000₫",
-      },
-      {
-        donhang: "AH-109763",
-        ngay: "10/14/2021 13:09:39",
-        tttt: "success",
-        ttvc: "success",
-        tong: "990,000₫",
-      },
-      {
-        donhang: "AH-109857",
-        ngay: "10/14/2021 13:09:39",
-        tttt: "pending",
-        ttvc: "not fulfilled",
-        tong: "1,020,000₫",
-      },
-    ],
-    users: {
-      name: "Trung",
-      last_name: "Lê",
-      cong_ty: "123 Cầu Giấy, Hà Nội",
-      dia_chi: "A5 Xuân Thủy, Hà Nội",
-      quoc_gia: "Vietnam",
-      sdt: "012345678",
-    },
+    userId: "",
+    order: []
   }),
-  created(){
+  async created(){
     this.$emit("getUser");
+    this.userId = JSON.parse(localStorage.getItem('User')).id;
+    const response = await axios.get('order/'+this.userId)
+    this.order = response.data
+    console.log(response)
+  },
+  methods:{
+    format_date(value){
+         if (value) {
+           return moment(String(value)).format('DD/MM/YYYY hh:mm:ss')
+          }
+      },
+      formatCash(str) {
+      return str.split('').reverse().reduce((prev, next, index) => {
+        return ((index % 3) ? next : (next + ',')) + prev
+      });
+    }
   }
 };
 </script>

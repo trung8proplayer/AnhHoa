@@ -12,16 +12,9 @@
             />
           </h2>
         </div>
-        <v-carousel
-          cycle
-          height="auto"
-          hide-delimiter-background
-          show-arrows-on-hover
-        >
-          <v-carousel-item>
-            <v-row>
-              <v-col v-for="item in news.news" :key="item">
-                <v-card class="mx-auto" max-width="60%">
+      <v-row>
+        <v-col cols="4" v-for="item in news" :key="item">
+          <v-card class="mx-auto">
                   <a href="" style="text-decoration: none; color: black; text-align: center">
                     <v-img
                     class="white--text align-end"
@@ -31,11 +24,10 @@
                   <h6>{{item.title}}</h6>
                   </a>
                   <p class="content">{{item.content}}</p>
-                </v-card>
-              </v-col>
-            </v-row>
-          </v-carousel-item>
-        </v-carousel>
+            </v-card> 
+        </v-col>
+        </v-row>              
+                 
       </v-container>
       <v-container class="introduce" style="padding-bottom: 50px">
         <div class="title">
@@ -94,8 +86,9 @@ export default {
   }),
   async created() {
     const response = await axios.get("news");
-    this.news = response.data;
-    console.log(this.news)
+    for (let index = 0; index < 3; index++) {
+      this.news.push(response.data[index])
+    }
   },
 };
 </script>

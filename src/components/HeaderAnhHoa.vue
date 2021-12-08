@@ -5,13 +5,13 @@
         <div class="nav_bar">
           <div class="nav">
             <div class="logo">
-              <a href="/" class="logo_img">
+              <router-link to="/" class="logo_img">
                 <img
                   src="https://theme.hstatic.net/1000313040/1000406925/14/logo.png?v=1734"
                   style="max-width: 100%"
                   alt=""
                 />
-              </a>
+              </router-link>
               <button class="btn_menu" @click="drawer = true">
                 <v-icon style="color: white">mdi-menu</v-icon>
               </button>
@@ -98,116 +98,55 @@
               </a>
               <router-link to="/cart" class="hd cart">
                 <v-icon>mdi-cart-variant</v-icon>
-                <span>0</span>
+                <span>Giỏ hàng</span>
               </router-link>
             </div>
             <div class="contact2">
               <div>
-                <a href="" class="hd2">
+                <router-link to="" class="hd2">
                   <v-icon>mdi-phone</v-icon>
                   <span>0961452578</span>
-                </a>
+                </router-link>
               </div>
               <div>
-                <a href="" class="hd2">
+                <router-link to="" class="hd2">
                   <v-icon>mdi-office-building</v-icon>
                   <span>Hệ thống 14 cửa hàng</span>
-                </a>
+                </router-link>
               </div>
             </div>
           </div>
           <div class="menu">
             <ul>
               <li>
-                <a href="">TRANG CHỦ</a>
+                <router-link to="/">TRANG CHỦ</router-link>
               </li>
               <li>
-                <a href="">
+                <router-link to="/banh-sinh-nhat">
                   <div class="dropdown" style="padding-top: 5px">
-                    <div class="dropdown-toggle" data-toggle="dropdown">
+                    <div>
                       BÁNH SINH NHẬT
                     </div>
-                    <div
-                      class="dropdown-menu"
-                      style="background-color: #827717"
-                    >
-                      <a
-                        class="dropdown-item"
-                        href="#"
-                        v-for="item in bsn"
-                        :key="item.index"
-                        style="color: black; font-size: 13px"
-                        >{{ item }}</a
-                      >
-                    </div>
                   </div>
-                </a>
+                </router-link>
               </li>
               <li>
-                <a href="">
+                <router-link to= "/banh-my-banh-man">
                   <div class="dropdown" style="padding-top: 5px">
-                    <div class="dropdown-toggle" data-toggle="dropdown">
+                    <div>
                       BÁNH MỲ & BÁNH MẶN
                     </div>
-                    <div
-                      class="dropdown-menu"
-                      style="background-color: #827717"
-                    >
-                      <a
-                        class="dropdown-item"
-                        href="#"
-                        v-for="item in bm"
-                        :key="item.index"
-                        style="color: black; font-size: 13px"
-                        >{{ item }}</a
-                      >
-                    </div>
                   </div>
-                </a>
+                </router-link>
               </li>
               <li>
-                <a href="">
+                <router-link to="/cookiecake-minicake">
                   <div class="dropdown" style="padding-top: 5px">
-                    <div class="dropdown-toggle" data-toggle="dropdown">
-                      TEABREAK
-                    </div>
-                    <div
-                      class="dropdown-menu"
-                      style="background-color: #827717"
-                    >
-                      <a
-                        class="dropdown-item"
-                        href="#"
-                        v-for="item in tea"
-                        :key="item.index"
-                        style="color: black; font-size: 13px"
-                        >{{ item }}</a
-                      >
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  <div class="dropdown" style="padding-top: 5px">
-                    <div class="dropdown-toggle" data-toggle="dropdown">
+                    <div>
                       COOKIES & MINICAKE
                     </div>
-                    <div
-                      class="dropdown-menu"
-                      style="background-color: #827717"
-                    >
-                      <a
-                        class="dropdown-item"
-                        href="#"
-                        v-for="item in cake"
-                        :key="item.index"
-                        style="color: black; font-size: 13px"
-                        >{{ item }}</a
-                      >
-                    </div>
                   </div>
-                </a>
+                </router-link>
               </li>
               <li>
                 <router-link to="/news">TIN TỨC</router-link>
@@ -234,30 +173,12 @@ export default {
       "Trang chủ",
       "Bánh sinh nhật",
       "Bánh mỳ & Bánh mặn",
-      "Teabreak",
       "Cookies & Minicake",
       "Tin tức",
       "Khuyến mại",
       "Chào, Trung",
       "Đăng xuất",
     ],
-    bsn: [
-      "Gateaux Kem Tươi",
-      "Gateaux Kem Bơ",
-      "Bánh Mousse",
-      "Gateaux Mousse",
-      "Bộ Sưu Tập Bánh Phụ Kiện",
-      "Bánh Valentine - Trái Tim",
-      "Bánh Sinh Nhật Bé Trai",
-      "Bánh Sinh Nhật Bé Gái",
-      "Bánh In Ảnh",
-      "Bánh Vẽ",
-      "Bánh Sự Kiện",
-      "BÁNH SỰ KIỆN THEO YÊU CẦU",
-    ],
-    bm: ["Bánh Mỳ", "Bánh Mặn"],
-    tea: [],
-    cake: ["Cookies", "Mini Cake"],
     key_search: "",
   }),
   watch:{

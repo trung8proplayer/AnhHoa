@@ -22,11 +22,11 @@
             </div>
             <div>
               <v-icon>mdi-cellphone</v-icon>
-              <a href=""><span>0961452578</span></a>
+              <router-link to=""><span>0961452578</span></router-link>
             </div>
             <div>
               <v-icon>mdi-email</v-icon>
-              <a href=""><span>info@anhhoabakery.vn</span></a>
+              <router-link to=""><span>info@anhhoabakery.vn</span></router-link>
             </div>
           </v-col>
           <v-col class="ft_chinhsach">
@@ -63,11 +63,11 @@
               </div>
             </form>
             <div class="ft_social">
-              <a href=""><v-icon>mdi-facebook</v-icon></a>
-              <a href=""><v-icon>mdi-twitter</v-icon></a>
-              <a href=""><v-icon>mdi-instagram</v-icon></a>
-              <a href=""><v-icon>mdi-google-plus</v-icon></a>
-              <a href=""><v-icon>mdi-youtube</v-icon></a>
+              <router-link to=""><v-icon>mdi-facebook</v-icon></router-link>
+              <router-link to=""><v-icon>mdi-twitter</v-icon></router-link>
+              <router-link to=""><v-icon>mdi-instagram</v-icon></router-link>
+              <router-link to=""><v-icon>mdi-google-plus</v-icon></router-link>
+              <router-link to=""><v-icon>mdi-youtube</v-icon></router-link>
             </div>
           </v-col>
           <v-col>
@@ -80,12 +80,12 @@
               </h5>
             </div>
             <div>
-              <a href="">
+              <router-link to="">
                 <img
                   src="https://theme.hstatic.net/1000313040/1000406925/14/hg_img_thumb1.png?v=1757"
                   alt=""
                 />
-              </a>
+              </router-link>
             </div>
           </v-col>
         </v-row>
@@ -96,7 +96,7 @@
         <v-row>
           <v-col class="ft_copy">
             <span>Copyrights © 2018 by</span>
-            <a href="">Anhhoa Bakery</a>
+            <router-link to="#">Anhhoa Bakery</router-link>
           </v-col>
         </v-row>
       </v-container>

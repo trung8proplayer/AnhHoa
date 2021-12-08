@@ -8,14 +8,13 @@
         </div>
         <div class="form_account">
             <v-row class="inner">
-                    <v-col v-for="item in products.news" :key="item">
-                        <v-card class="mx-auto" max-width="270px" >
+                    <v-col cols="4" v-for="item in products" :key="item">
+                        <v-card class="mx-auto">
                         <router-link
                             :to="{ name: 'NewDetail', params: {  id: item._id } }"
                         >
                             <v-img
                             class="white--text align-end"
-                            height="255px"
                             :src="item.new_image"
                             >
                             </v-img>
@@ -45,7 +44,6 @@ export default {
   async created() {
     const response = await axios.get("news");
     this.products = response.data;
-    console.log(this.products)
   },
 }
 </script>

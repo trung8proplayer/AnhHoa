@@ -14,6 +14,11 @@ import Promotions from '../views/Promotions.vue'
 import PromotionDetail from '../views/PromotionDetail.vue'
 import NewDetail from '../views/NewDetail.vue'
 import AdminProduct from '../ADMIN/AdminProduct.vue'
+import BirthdayCake from '../views/BirthdayCake.vue'
+import BreadCake from '../views/BreadCake.vue'
+import CookieCake from '../views/CookieCake.vue'
+import HighlightsCake from '../views/HighlightsCake.vue'
+
 
 Vue.use(VueRouter)
 
@@ -82,6 +87,7 @@ const routes = [
     component: Promotions
   },
   {
+
     path: '/new-detail/:id',
     name: 'NewDetail',
     component: NewDetail
@@ -95,6 +101,25 @@ const routes = [
     path: '/admin',
     name: 'AdminProduct',
     component: AdminProduct
+
+    path: '/banh-sinh-nhat',
+    name: 'BirthdayCake',
+    component: BirthdayCake
+  },
+  {
+    path: '/banh-my-banh-man',
+    name: 'BreadCake',
+    component: BreadCake
+  },
+  {
+    path: '/cookiecake-minicake',
+    name: 'CookieCake',
+    component: CookieCake
+  },
+  {
+    path: '/highlights-cake',
+    name: 'HighlightsCake',
+    component: HighlightsCake
   },
 ]
 

@@ -48,20 +48,14 @@
                     </div>
                   </div>
                   <div class="product_tp">
-                        <p>Thành phần chính:</p>
-                        <p>- Gato</p>
-                        <p>- Kem tươi vị rượu rum</p>
-                        <p>- Hoa quả</p>
-                        <p>- Dừa khô.</p>
+                        <p>Mô tả chung:</p>
                         <p>
-                          Bánh làm từ 3 lớp gato trắng xen giữa 3 lớp kem tươi
-                          vị rượu rum (nho). Trên mặt bánh được trang trí bằng
-                          hoa quả với dừa khô kết xung quanh.
+                          {{product.description}}
                         </p>
                   </div>
                   <div class="product_actions">
                     <button class="btnAddtocart" @click="addtoCart()">THÊM VÀO GIỎ HÀNG</button>
-                    <button class="btnBuynow">MUA NGAY</button>
+                    <button class="btnBuynow" @click="addtoCart2()">MUA NGAY</button>
                   </div>
                 </div>
               </div>
@@ -108,7 +102,6 @@ export default {
     this.id = this.$route.params.id
     const res = await axios.get(`cake/${this.id}`);
     this.product = res.data[0];
-    console.log(this.product);
     this.user = JSON.parse(localStorage.getItem("User"));
   },
   methods: {
@@ -123,12 +116,21 @@ export default {
         return ((index % 3) ? next : (next + ',')) + prev
       });
     },
-    addtoCart(){
-      const response = axios.post('cart/create',{
-        cakeId: [this.product._id],
-        userId: this.user.id
-      })
-      alert(response);
+    async addtoCart(){
+      await axios.post('cart/create',{
+        cakeId: this.product._id,
+        userId: this.user.id,
+        quantity: this.number
+      });
+      alert("Đã thêm vào giỏ của bạn!");
+    },
+    async addtoCart2(){
+      await axios.post('cart/create',{
+        cakeId: this.product._id,
+        userId: this.user.id,
+        quantity: this.number
+      });
+      this.$router.push("/cart");
     }
   } 
 };
@@ -186,7 +188,7 @@ export default {
   border-radius: 10px;
 }
 .product_infor {
-  height: 500px;
+  height: 400px;
   border-radius: 10px;
 }
 .infor {
