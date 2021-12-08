@@ -1,7 +1,87 @@
 <template>
   <div>
-    <div>
-    <b-button v-b-modal.modal-prevent-closing>Open Modal</b-button>
+      <v-card
+    class="mx-auto overflow-hidden"
+    height="100%"
+  >
+    <v-app-bar
+      color="deep-purple"
+      dark
+    >
+      <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
+
+      <v-toolbar-title>Admin</v-toolbar-title>
+    </v-app-bar>
+    <table>
+      <b-button v-b-modal.modal-prevent-closing>Thêm bánh mới</b-button>
+  <tr>
+    <th>Tên bánh</th>
+    <th>Ảnh</th>
+    <th>Giá tiền</th>
+    <th>Loại Bánh</th>
+    <th>Mô tả</th>
+    <th>Hoạt động</th>
+  </tr>
+  <tr v-for="item in products" :key="item._id">
+    <td>{{item.cake_name}}</td>
+    <td><img :src="item.cake_image" alt="" style="height:100px"></td>
+    <td>{{item.price}}</td>
+    <td>{{item.cake_type}}</td>
+    <td>{{item.description}}</td>
+    <td>
+        <div style="display:flex">
+          <button @click.prevent="deleteProducts(item._id)" class="btn-delete">Xóa </button>
+          <button v-b-modal.modal-prevent @click.prevent="editproduct(item._id)" class="btn-edit">Sửa </button>
+        </div>
+    </td>
+  </tr>
+</table>
+    <v-navigation-drawer
+      v-model="drawer"
+      absolute
+      temporary
+    >
+      <v-list
+        nav
+        dense
+      >
+        <v-list-item-group
+          v-model="group"
+          active-class="deep-purple--text text--accent-4"
+        >
+        <router-link to="/admin">
+                  
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon>mdi-home</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Quản lý sản phẩm</v-list-item-title>
+          </v-list-item>
+        </router-link>
+         <router-link to="/admin/news">
+                  
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon>mdi-home</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Quản lý tin tức</v-list-item-title>
+          </v-list-item>
+        </router-link>
+         <router-link to="/admin/promotions">
+            <v-list-item>
+            <v-list-item-icon>
+              <v-icon>mdi-account</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Quản lý khuyến mại</v-list-item-title>
+          </v-list-item>
+        </router-link>
+        
+         
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
+  </v-card>
+  <div>
     <b-modal
       id="modal-prevent-closing"
       ref="modal"
@@ -159,30 +239,6 @@
       </form>
     </b-modal>
   </div>
-  
-    <table>
-  <tr>
-    <th>Tên bánh</th>
-    <th>Ảnh</th>
-    <th>Giá tiền</th>
-    <th>Loại Bánh</th>
-    <th>Mô tả</th>
-    <th>Hoạt động</th>
-  </tr>
-  <tr v-for="item in products" :key="item._id">
-    <td>{{item.cake_name}}</td>
-    <td>{{item.cake_image}}</td>
-    <td>{{item.price}}</td>
-    <td>{{item.cake_type}}</td>
-    <td>{{item.description}}</td>
-    <td>
-        <button @click.prevent="deleteProducts(item._id)">Xóa</button>
-        <button v-b-modal.modal-prevent @click.prevent="editproduct(item._id)">Sửa</button>
-    </td>
-  </tr>
-</table>
-  
-
   </div>
 </template>
 
@@ -201,6 +257,8 @@ export default {
         cake_type:'',
         description:''
       },
+      drawer: false,
+      group: null,
       oldProduct:{
       },
       nameState: null,
@@ -223,7 +281,8 @@ export default {
               break
             }
           }
-        }) 
+        })
+        alert("Xóa thành công") 
       },
       async addProduct(){
         axios.post('cake/create',this.product).then(()=>{
@@ -233,6 +292,8 @@ export default {
           this.$bvModal.hide('modal-prevent-closing')
         })
         })
+        window.location.reload()
+        alert("Thêm thành công")
       },
       async editproduct(_id){
         const res = await axios.get(`cake/${_id}`)
@@ -248,6 +309,7 @@ export default {
               break
             }
           }
+          alert("Cập nhật thành công")
         })
         this.$nextTick(() => {
           this.$bvModal.hide('modal-prevent')
@@ -284,20 +346,35 @@ table {
   border-collapse: collapse;
   width: 80%;
   margin:50px auto;
-  font-size: 10px;
+  font-size: 14px;
 }
 
 td, th {
   border: 1px solid #dddddd;
-  text-align: left;
+  text-align: center;
   padding: 8px;
 }
 
 tr:nth-child(even) {
   background-color: #dddddd;
 }
-.btn{
-  background-color: blue;
+.btn-delete{
+  
+  padding: 10px;
+  border-radius: 5px;
   color: #dddddd;
+  background-color: orangered;
+  margin-right: 10px ;
+}
+.btn-edit{
+  background-color: blue;
+  padding: 10px;
+  border-radius: 5px;
+  color: #dddddd;
+  
+}
+.v-item-group{
+    margin-top: 50%;
 }
 </style>
+
