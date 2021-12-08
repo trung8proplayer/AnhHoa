@@ -1,8 +1,8 @@
 <template>
     <div>
         <v-row>
-          <v-col v-for="item in products" :key="item">
-            <v-card class="mx-auto" max-width="270px" >
+          <v-col cols="3" v-for="item in products" :key="item">
+            <v-card class="mx-auto">
               <router-link
                 :to="{ name: 'ProductDetail', params: { id: item._id} }"
               >

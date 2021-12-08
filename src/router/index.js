@@ -101,7 +101,8 @@ const routes = [
     path: '/admin',
     name: 'AdminProduct',
     component: AdminProduct
-
+  },
+  {
     path: '/banh-sinh-nhat',
     name: 'BirthdayCake',
     component: BirthdayCake
