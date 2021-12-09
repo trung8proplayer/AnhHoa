@@ -25,7 +25,7 @@
                       >
                       </v-img>
                     </v-col>
-                    <v-col>
+                    <v-col cols="6">
                       <div class="contact-content">
                         <span class="contact">
                          <v-icon class="home">mdi-home</v-icon>
