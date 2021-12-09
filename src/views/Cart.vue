@@ -123,6 +123,7 @@ export default {
         for (const [index, item] of this.cart.entries()) {
           if(item.cakes._id==cakeid){
             this.cart.splice(index,1);
+           this.total = this.total - item.cakes.price*item.quantity
             break;
           }
         }
