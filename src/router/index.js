@@ -21,7 +21,7 @@ import HighlightsCake from '../views/HighlightsCake.vue'
 import AdminLayout from '../ADMIN/AdminLayout.vue'
 import AdminNew from '../ADMIN/AdminNew.vue'
 import AdminPromotion from '../ADMIN/AdminPromotion.vue'
-
+import Order from '../ADMIN/Order.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -138,6 +138,11 @@ const routes = [
     path: '/admin/promotions',
     name: 'AdminPromotion',
     component: AdminPromotion
+  },
+  {
+    path: '/admin/orders',
+    name: 'AdminPromotion',
+    component: Order
   },
 ]
 
