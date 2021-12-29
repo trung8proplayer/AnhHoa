@@ -62,12 +62,17 @@ export default {
           email: this.email,
           password: this.password,
         });
-        this.user.firstName = response.data[0].fistName;
-        this.user.lastName = response.data[0].lastName;
-        this.user.email = response.data[0].email;
-        this.user.id = response.data[0]._id;
-        localStorage.setItem("User", JSON.stringify(this.user));
-        this.$router.push("/account");
+        if(this.email == "admin@anhhoa.com"){
+          this.$router.push("/admin");
+        }
+        else{
+          this.user.firstName = response.data[0].fistName;
+          this.user.lastName = response.data[0].lastName;
+          this.user.email = response.data[0].email;
+          this.user.id = response.data[0]._id;
+          localStorage.setItem("User", JSON.stringify(this.user));
+          this.$router.push("/account");
+        }
       } catch (e) {
         this.error = "Email/Mật khẩu không hợp lệ!";
       }

@@ -1,245 +1,107 @@
 <template>
-  <div>
-      <v-card
-    class="mx-auto overflow-hidden"
-    height="100%"
+  <v-data-table
+    :headers="headers"
+    :items="products"
+    class="elevation-1"
+    :items-per-page="5"
+    :search="search"
   >
-    <v-app-bar
-      color="deep-purple"
-      dark
-    >
-      <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
+    <template v-slot:top>
+      <v-toolbar flat>
+        <v-toolbar-title>Danh sách bánh</v-toolbar-title>
+        <v-divider class="mx-4" inset vertical></v-divider>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+        ></v-text-field>
+        <v-spacer></v-spacer>
+        <v-dialog v-model="dialog" max-width="500px">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
+              Thêm bánh mới
+            </v-btn>
+          </template>
+          <v-card>
+            <v-card-title>
+              <span class="text-h5">{{ formTitle }}</span>
+            </v-card-title>
 
-      <v-toolbar-title>Admin</v-toolbar-title>
-    </v-app-bar>
-    <table>
-      <b-button v-b-modal.modal-prevent-closing>Thêm bánh mới</b-button>
-  <tr>
-    <th>Tên bánh</th>
-    <th>Ảnh</th>
-    <th>Giá tiền</th>
-    <th>Loại Bánh</th>
-    <th>Mô tả</th>
-    <th>Hoạt động</th>
-  </tr>
-  <tr v-for="item in products" :key="item._id">
-    <td>{{item.cake_name}}</td>
-    <td><img :src="item.cake_image" alt="" style="height:100px"></td>
-    <td>{{item.price}}</td>
-    <td>{{item.cake_type}}</td>
-    <td>{{item.description}}</td>
-    <td>
-        <div style="display:flex">
-          <button @click.prevent="deleteProducts(item._id)" class="btn-delete">Xóa </button>
-          <button v-b-modal.modal-prevent @click.prevent="editproduct(item._id)" class="btn-edit">Sửa </button>
-        </div>
-    </td>
-  </tr>
-</table>
-    <v-navigation-drawer
-      v-model="drawer"
-      absolute
-      temporary
-    >
-      <v-list
-        nav
-        dense
-      >
-        <v-list-item-group
-          v-model="group"
-          active-class="deep-purple--text text--accent-4"
-        >
-        <router-link to="/admin">
-                  
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon>mdi-home</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Quản lý sản phẩm</v-list-item-title>
-          </v-list-item>
-        </router-link>
-         <router-link to="/admin/news">
-                  
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon>mdi-home</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Quản lý tin tức</v-list-item-title>
-          </v-list-item>
-        </router-link>
-         <router-link to="/admin/promotions">
-            <v-list-item>
-            <v-list-item-icon>
-              <v-icon>mdi-account</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Quản lý khuyến mại</v-list-item-title>
-          </v-list-item>
-        </router-link>
-        
-         
-        </v-list-item-group>
-      </v-list>
-    </v-navigation-drawer>
-  </v-card>
-  <div>
-    <b-modal
-      id="modal-prevent-closing"
-      ref="modal"
-      title="Nhập thông tin bánh"
-      @show="resetModal"
-      @hidden="resetModal"
-      @ok="handleOk"
-    >
-      <form ref="form" @submit.stop.prevent="addProduct">
-        <b-form-group
-          label="Tên bánh"
-          label-for="name-input"
-          invalid-feedback="Name is required"
-          :state="nameState"
-        >
-          <b-form-input
-            id="name-input"
-            v-model="product.cake_name"
-            :state="nameState"
-            required
-          ></b-form-input>
-        </b-form-group>
-        <b-form-group
-          label="Ảnh"
-          label-for="image-input"
-          invalid-feedback="Name is required"
-          :state="nameState"
-        >
-          <b-form-input
-            id="image-input"
-            v-model="product.cake_image"
-            :state="nameState"
-            required
-          ></b-form-input>
-        </b-form-group>
-        <b-form-group
-          label="Giá tiền"
-          label-for="price-input"
-          invalid-feedback="Name is required"
-          :state="nameState"
-        >
-          <b-form-input
-            id="price-input"
-            v-model="product.price"
-            :state="nameState"
-            required
-          ></b-form-input>
-        </b-form-group>
-        <b-form-group
-          label="Loại bánh"
-          label-for="type-input"
-          invalid-feedback="Name is required"
-          :state="nameState"
-        >
-          <b-form-input
-            id="type-input"
-            v-model="product.cake_type"
-            :state="nameState"
-            required
-          ></b-form-input>
-        </b-form-group>
-        <b-form-group
-          label="Mô tả"
-          label-for="description-input"
-          invalid-feedback="Name is required"
-          :state="nameState"
-        >
-          <b-form-input
-            id="description-input"
-            v-model="product.description"
-            :state="nameState"
-            required
-          ></b-form-input>
-        </b-form-group>
-        
-      </form>
-    </b-modal>
-    <!-- update -->
-    <b-modal
-      id="modal-prevent"
-      ref="modal"
-      title="Sửa thông tin bánh"
-      @show="resetModal"
-      @hidden="resetModal"
-      @ok="handleOk2"
-      
-    >
-      <form ref="form" @submit.stop.prevent="updateProduct">
-        <b-form-group
-          label="Tên bánh"
-          label-for="name-input"
-          invalid-feedback="Name is required"
-          :state="nameState"
-        >
-          <b-form-input
-            id="name-input"
-            v-model="oldProduct.cake_name"
-            :state="nameState"
-            required
-          ></b-form-input>
-        </b-form-group>
-        <b-form-group
-          label="Ảnh"
-          label-for="image-input"
-          invalid-feedback="Name is required"
-          :state="nameState"
-        >
-          <b-form-input
-            id="image-input"
-            v-model="oldProduct.cake_image"
-            :state="nameState"
-            required
-          ></b-form-input>
-        </b-form-group>
-        <b-form-group
-          label="Giá tiền"
-          label-for="price-input"
-          invalid-feedback="Name is required"
-          :state="nameState"
-        >
-          <b-form-input
-            id="price-input"
-            v-model="oldProduct.price"
-            :state="nameState"
-            required
-          ></b-form-input>
-        </b-form-group>
-        <b-form-group
-          label="Loại bánh"
-          label-for="type-input"
-          invalid-feedback="Name is required"
-          :state="nameState"
-        >
-          <b-form-input
-            id="type-input"
-            v-model="oldProduct.cake_type"
-            :state="nameState"
-            required
-          ></b-form-input>
-        </b-form-group>
-        <b-form-group
-          label="Mô tả"
-          label-for="description-input"
-          invalid-feedback="Name is required"
-          :state="nameState"
-        >
-          <b-form-input
-            id="description-input"
-            v-model="oldProduct.description"
-            :state="nameState"
-            required
-          ></b-form-input>
-        </b-form-group>
-        
-      </form>
-    </b-modal>
-  </div>
-  </div>
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                      v-model="product.cake_name"
+                      label="Tên bánh"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                      v-model="product.cake_image"
+                      label="Ảnh"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                      v-model="product.price"
+                      label="Giá"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                      v-model="product.cake_type"
+                      label="Loại bánh"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                      v-model="product.description"
+                      label="Mô tả"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="close"> Hủy </v-btn>
+              <v-btn color="blue darken-1" text @click="save"> Lưu </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <v-dialog v-model="dialogDelete" max-width="500px">
+          <v-card>
+            <v-card-title class="text-h5"
+              >Bạn muốn xóa bánh này?</v-card-title
+            >
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="closeDelete"
+                >Không</v-btn
+              >
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                >Có</v-btn
+              >
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-toolbar>
+    </template>
+    <template v-slot:[`item.cake_image`]="{ item }">
+      <v-img :src="item.cake_image" style="width: 200px; height: 200px"></v-img>
+    </template>
+    <template v-slot:[`item.actions`]="{ item }">
+      <v-icon small class="mr-2 text-primary" @click="editItem(item)"> mdi-pencil </v-icon>
+      <v-icon small @click="deleteItem(item)" class="text-danger"> mdi-delete </v-icon>
+    </template>
+    <template v-slot:no-data>
+      <v-btn color="primary" @click="getData"> Reset </v-btn>
+    </template>
+  </v-data-table>
 </template>
 
 <script>
@@ -250,129 +112,111 @@ export default {
   data() {
     return {
       products: [],
-      product:{
-        cake_name: '',
-        cake_image:'',
-        price:'',
-        cake_type:'',
-        description:''
+      product: {},
+      search: "",
+      dialog: false,
+      dialogDelete: false,
+      editedIndex: -1,
+      defaultItem: {
+        cake_name: "",
+        cake_image: "",
+        price: "",
+        cake_type: "",
+        description: "",
       },
-      drawer: false,
-      group: null,
-      oldProduct:{
-      },
-      nameState: null,
-      
-       
-    }
+      headers: [
+        { text: "Tên bánh", value: "cake_name", align: "start" },
+        { text: "Ảnh", value: "cake_image", sortable: false },
+        { text: "Giá", value: "price", align: "center" },
+        { text: "Loại bánh", value: "cake_type" },
+        { text: "Mô tả", value: "description", align: "center" },
+        { text: "Hành động", value: "actions", sortable: false },
+      ],
+    };
+  },
+  computed: {
+    formTitle() {
+      return this.editedIndex === -1 ? "Thêm bánh" : "Sửa thông tin bánh";
+    },
+  },
+
+  watch: {
+    dialog(val) {
+      val || this.close();
+    },
+    dialogDelete(val) {
+      val || this.closeDelete();
+    },
   },
   async created() {
-    const res = await axios.get("cake");
-    this.products = res.data;
-    console.log(this.products)
+    this.getData();
   },
   methods: {
-      async deleteProducts(_id)
-      {
-        axios.delete(`cake/${_id}`).then(()=>{    
-          for(let i=0;i  < this.products.length; i++){
-            if(this.products[i]._id== _id){
-              this.products.splice(i,1)
-              break
-            }
-          }
-        })
-        alert("Xóa thành công") 
-      },
-      async addProduct(){
-        axios.post('cake/create',this.product).then(()=>{
-          this.products.push(this.product);
-          console.log(this.product)
-          this.$nextTick(() => {
-          this.$bvModal.hide('modal-prevent-closing')
-        })
-        })
-        alert("Thêm thành công")
-      },
-      async editproduct(_id){
-        const res = await axios.get(`cake/${_id}`)
-        this.oldProduct = res.data[0]
-        console.log(this.oldProduct)
-      },
-      async updateProduct(){
-        axios.put(`cake/${this.oldProduct._id}`,this.oldProduct).then(()=>{
-          for(let i=0; i < this.products.length; i++){
-            if(this.products[i]==this.oldProduct._id){
-              this.products.splice(i , 1, this.oldProduct)
-              console.log(i)
-              break
-            }
-          }
-          alert("Cập nhật thành công")
-        })
-        this.$nextTick(() => {
-          this.$bvModal.hide('modal-prevent')
-        })
-      },
-      checkFormValidity() {
-        const valid = this.$refs.form.checkValidity()
-        this.nameState = valid
-        return valid
-      },
-      handleOk(bvModalEvt) {
-        // Prevent modal from closing
-        bvModalEvt.preventDefault()
-        // Trigger submit handler
-        this.addProduct()
-      },
-      handleOk2(bvModalEvt) {
-        // Prevent modal from closing
-        bvModalEvt.preventDefault()
-        // Trigger submit handler
-        this.updateProduct()
-        
-      },
-      resetModal() {
-        this.nameState = null
-      },
-    }
-}
+    async addCake() {
+      axios.post("cake/create", this.product).then(() => {
+        this.getData();
+      });
+      alert("Thêm thành công");
+    },
+    editItem(item) {
+      this.editedIndex = this.products.indexOf(item);
+      this.product = Object.assign({}, item);
+      this.dialog = true;
+      console.log(item);
+    },
+    updateCake() {
+      axios.put(`cake/${this.product._id}`, this.product).then(() => {
+        this.getData();
+      });
+    },
+    async getData() {
+      const res = await axios.get("cake");
+      this.products = res.data;
+    },
+
+    deleteItem(item) {
+      this.editedIndex = this.products.indexOf(item);
+      this.product = Object.assign({}, item);
+      this.dialogDelete = true;
+    },
+    async deleteCake() {
+      axios.delete(`cake/${this.product._id}`).then(() => {
+        this.getData();
+      });
+    },
+
+    deleteItemConfirm() {
+      this.deleteCake();
+      this.closeDelete();
+    },
+
+    close() {
+      this.dialog = false;
+      this.$nextTick(() => {
+        this.product = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
+    },
+
+    closeDelete() {
+      this.dialogDelete = false;
+      this.$nextTick(() => {
+        this.product = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
+    },
+
+    save() {
+      if (this.editedIndex > -1) {
+        this.updateCake();
+      } else {
+        this.addCake();
+      }
+      this.close();
+    },
+  },
+};
 </script>
 <style scoped>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 80%;
-  margin:50px auto;
-  font-size: 14px;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: center;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-.btn-delete{
-  
-  padding: 10px;
-  border-radius: 5px;
-  color: #dddddd;
-  background-color: orangered;
-  margin-right: 10px ;
-}
-.btn-edit{
-  background-color: blue;
-  padding: 10px;
-  border-radius: 5px;
-  color: #dddddd;
-  
-}
-.v-item-group{
-    margin-top: 50%;
-}
 </style>
 
