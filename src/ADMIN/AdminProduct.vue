@@ -292,7 +292,6 @@ export default {
           this.$bvModal.hide('modal-prevent-closing')
         })
         })
-        window.location.reload()
         alert("Thêm thành công")
       },
       async editproduct(_id){
@@ -314,7 +313,6 @@ export default {
         this.$nextTick(() => {
           this.$bvModal.hide('modal-prevent')
         })
-        window.location.reload()
       },
       checkFormValidity() {
         const valid = this.$refs.form.checkValidity()
