@@ -1,139 +1,95 @@
 <template>
-  <div>
-    <v-card class="mx-auto overflow-hidden" height="100%">
-      <table>
-        <b-button v-b-modal.modal-prevent-closing>Thêm tin tức mới</b-button>
-        <tr>
-          <th>Tên tin tức</th>
-          <th>Ảnh</th>
-          <th>Nội dung</th>
-          <th>Hoạt động</th>
-        </tr>
-        <tr v-for="item in news" :key="item._id">
-          <td>{{ item.title }}</td>
-          <td><img :src="item.new_image" alt="" style="height: 100px" /></td>
-          <td>{{ item.content }}</td>
-          <td>
-            <div style="display: flex">
-              <button @click.prevent="deleteNew(item._id)" class="btn-delete">
-                Xóa
-              </button>
-              <button
-                v-b-modal.modal-prevent
-                @click.prevent="editNew(item._id)"
-                class="btn-edit"
-              >
-                Sửa
-              </button>
-            </div>
-          </td>
-        </tr>
-      </table>
-    </v-card>
-    <div>
-      <b-modal
-        id="modal-prevent-closing"
-        ref="modal"
-        title="Nhập thông tin tin tức"
-        @show="resetModal"
-        @hidden="resetModal"
-        @ok="handleOk"
-      >
-        <form ref="form" @submit.stop.prevent="addNew">
-          <b-form-group
-            label="Tên tin tức"
-            label-for="name-input"
-            invalid-feedback="Name is required"
-            :state="nameState"
-          >
-            <b-form-input
-              id="name-input"
-              v-model="newOne.title"
-              :state="nameState"
-              required
-            ></b-form-input>
-          </b-form-group>
-          <b-form-group
-            label="Ảnh"
-            label-for="image-input"
-            invalid-feedback="Name is required"
-            :state="nameState"
-          >
-            <b-form-input
-              id="image-input"
-              v-model="newOne.new_image"
-              :state="nameState"
-              required
-            ></b-form-input>
-          </b-form-group>
-          <b-form-group
-            label="Nội dung"
-            label-for="price-input"
-            invalid-feedback="Name is required"
-            :state="nameState"
-          >
-            <b-form-input
-              id="price-input"
-              v-model="newOne.content"
-              :state="nameState"
-              required
-            ></b-form-input>
-          </b-form-group>
-        </form>
-      </b-modal>
+   <v-data-table
+    :headers="headers"
+    :items="news"
+    class="elevation-1"
+    :items-per-page="5"
+    :search="search"
+  >
+    <template v-slot:top>
+      <v-toolbar flat>
+        <v-toolbar-title>Danh sách tin tức</v-toolbar-title>
+        <v-divider class="mx-4" inset vertical></v-divider>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+        ></v-text-field>
+        <v-spacer></v-spacer>
+        <v-dialog v-model="dialog" max-width="500px">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
+              Thêm tin tức mới
+            </v-btn>
+          </template>
+          <v-card>
+            <v-card-title>
+              <span class="text-h5">{{ formTitle }}</span>
+            </v-card-title>
 
-      <b-modal
-        id="modal-prevent"
-        ref="modal"
-        title="Sửa thông tin tin tức"
-        @show="resetModal"
-        @hidden="resetModal"
-        @ok="handleOk2"
-      >
-        <form ref="form" @submit.stop.prevent="updateNew">
-          <b-form-group
-            label="Tên tin tức"
-            label-for="name-input"
-            invalid-feedback="Name is required"
-            :state="nameState"
-          >
-            <b-form-input
-              id="name-input"
-              v-model="oldNew.title"
-              :state="nameState"
-              required
-            ></b-form-input>
-          </b-form-group>
-          <b-form-group
-            label="Ảnh"
-            label-for="image-input"
-            invalid-feedback="Name is required"
-            :state="nameState"
-          >
-            <b-form-input
-              id="image-input"
-              v-model="oldNew.new_image"
-              :state="nameState"
-              required
-            ></b-form-input>
-          </b-form-group>
-          <b-form-group
-            label="Nội dung"
-            label-for="price-input"
-            invalid-feedback="Name is required"
-            :state="nameState"
-          >
-            <b-form-input
-              id="price-input"
-              v-model="oldNew.content"
-              :state="nameState"
-              required
-            ></b-form-input>
-          </b-form-group>
-        </form>
-      </b-modal>
-    </div>
-  </div>
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                      v-model="newOne.title"
+                      label="Tên tin tức"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                      v-model="newOne.new_image"
+                      label="Ảnh"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6" md="4">
+                    <v-text-field
+                      v-model="newOne.content"
+                      label="Nội dung"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="close"> Hủy </v-btn>
+              <v-btn color="blue darken-1" text @click="save"> Lưu </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <v-dialog v-model="dialogDelete" max-width="500px">
+          <v-card>
+            <v-card-title class="text-h5"
+              >Bạn muốn xóa tin tức này?</v-card-title
+            >
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="closeDelete"
+                >Không</v-btn
+              >
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+                >Có</v-btn
+              >
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+      </v-toolbar>
+    </template>
+    <template v-slot:[`item.new_image`]="{ item }">
+      <v-img :src="item.new_image" style="width: 200px; height: 200px"></v-img>
+    </template>
+    <template v-slot:[`item.actions`]="{ item }">
+      <v-icon small class="mr-2 text-primary" @click="editItem(item)"> mdi-pencil </v-icon>
+      <v-icon small @click="deleteItem(item)" class="text-danger"> mdi-delete </v-icon>
+    </template>
+    <template v-slot:no-data>
+      <v-btn color="primary" @click="getData"> Reset </v-btn>
+    </template>
+  </v-data-table>
 </template>
 
 <script>
@@ -145,62 +101,100 @@ export default {
     return {
       news: [],
       newOne: {},
-      drawer: false,
-      group: null,
-      oldNew: {},
-      nameState: null,
+      search: "",
+      dialog: false,
+      dialogDelete: false,
+      editedIndex: -1,
+      defaultItem: {
+        new_image: "",
+        title: "",
+        content: "",
+      },
+      headers: [
+        { text: "Tên tin tức", value: "title", align: "start" },
+        { text: "Ảnh", value: "new_image", sortable: false },
+        { text: "Nội dung", value: "content", align: "center" },
+        { text: "Hành động", value: "actions", sortable: false },
+      ],
     };
+  },
+   computed: {
+    formTitle() {
+      return this.editedIndex === -1 ? "Thêm tin tức" : "Sửa thông tin tin tức";
+    },
+  },
+
+  watch: {
+    dialog(val) {
+      val || this.close();
+    },
+    dialogDelete(val) {
+      val || this.closeDelete();
+    },
   },
   async created() {
     this.getData();
   },
   methods: {
-    async deleteNew(_id) {
-      axios.delete(`news/${_id}`).then(() => {
+    async deleteNew() {
+      axios.delete(`news/${this.newOne._id}`).then(() => {
         this.getData();
       });
-      alert("Xóa thành công");
+    },
+    deleteItem(item) {
+      this.editedIndex = this.news.indexOf(item);
+      this.newOne = Object.assign({}, item);
+      this.dialogDelete = true;
     },
     async addNew() {
       axios.post("news/create", this.newOne).then(() => {
         this.getData();
-        this.$bvModal.hide("modal-prevent-closing");
       });
-      alert("Thêm thành công");
     },
-    async editNew(_id) {
-      const res = await axios.get(`news/${_id}`);
-      this.oldNew = res.data[0];
+    editItem(item) {
+      this.editedIndex = this.news.indexOf(item);
+      this.newOne = Object.assign({}, item);
+      this.dialog = true;
+      console.log(item);
     },
     updateNew() {
-      axios.put(`news/${this.oldNew._id}`, this.oldNew).then(() => {
+      axios.put(`news/${this.newOne._id}`, this.newOne).then(() => {
         this.getData().then(() => {
-          this.$bvModal.hide("modal-prevent");
-          alert("Cập nhật thành công");
         });
       });
-    },
-    checkFormValidity() {
-      const valid = this.$refs.form.checkValidity();
-      this.nameState = valid;
-      return valid;
-    },
-    handleOk(bvModalEvt) {
-      bvModalEvt.preventDefault();
-
-      this.addNew();
-    },
-    handleOk2(bvModalEvt) {
-      bvModalEvt.preventDefault();
-
-      this.updateNew();
-    },
-    resetModal() {
-      this.nameState = null;
     },
     async getData() {
       const res = await axios.get("news");
       this.news = res.data;
+    },
+    deleteItemConfirm() {
+      this.deleteNew();
+      this.closeDelete();
+    },
+
+    close() {
+      this.dialog = false;
+      this.$nextTick(() => {
+        this.newOne = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
+    },
+
+    closeDelete() {
+      this.dialogDelete = false;
+      this.$nextTick(() => {
+        this.newOne = Object.assign({}, this.defaultItem);
+        this.editedIndex = -1;
+      });
+    },
+
+    save() {
+      if (this.editedIndex > -1) {
+        this.updateNew();
+      } else {
+        this.addNew();
+      }
+      this.close();
     },
   },
 };
