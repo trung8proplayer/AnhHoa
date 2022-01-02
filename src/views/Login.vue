@@ -63,6 +63,7 @@ export default {
           password: this.password,
         });
         if(this.email == "admin@anhhoa.com"){
+          localStorage.setItem("Admin", JSON.stringify(response.data[0]._id));
           this.$router.push("/admin");
         }
         else{
