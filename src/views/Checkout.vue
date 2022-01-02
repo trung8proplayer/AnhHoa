@@ -17,7 +17,7 @@
                             <router-link to="" style="margin-top: 10px">Đăng xuất</router-link>
                         </div>
                     </div>
-                    <v-form>
+                    <div>
                         <template>
                             <div>
                                 <v-text-field
@@ -42,10 +42,10 @@
                             <router-link to="/cart">Giỏ hàng</router-link>
                         </v-col>
                         <v-col>
-                            <button class="btn_checkout" type="submit" @click="checkout()">Thanh toán</button>
+                            <button class="btn_checkout" @click="checkout">Thanh toán</button>
                         </v-col>
                     </v-row>
-                    </v-form>
+                    </div>
                 </div>
             </v-col>
             <v-col cols="5">
@@ -145,10 +145,12 @@ export default {
             name: "AHB"+ this.count.toString(),
             total: this.total,
             address: this.dc + this.tp,
-            phone: this.dt
+            phone: this.dt,
+            cakes:this.cart.map(e=> e.cakes._id)
         })
         alert("Đặt hàng thành công!")
         this.$router.push("/");
+        console.log(this.cart.map(e=> e._id))
     },
   } 
 

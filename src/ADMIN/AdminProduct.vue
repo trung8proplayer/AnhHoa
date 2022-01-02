@@ -149,7 +149,7 @@ export default {
     },
   },
   async created() {
-    this.getData();
+    this.getData()
   },
   methods: {
     async addCake() {

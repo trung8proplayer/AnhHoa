@@ -22,6 +22,7 @@ import AdminLayout from '../ADMIN/AdminLayout.vue'
 import AdminNew from '../ADMIN/AdminNew.vue'
 import AdminPromotion from '../ADMIN/AdminPromotion.vue'
 import Order from '../ADMIN/Order.vue'
+import PerOrder from '../ADMIN/PerOrder.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -141,8 +142,13 @@ const routes = [
   },
   {
     path: '/admin/orders',
-    name: 'AdminPromotion',
+    name: 'Order',
     component: Order
+  },
+  {
+    path: '/admin/perorder',
+    name: 'PerOrder',
+    component: PerOrder
   },
 ]
 

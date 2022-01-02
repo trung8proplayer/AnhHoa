@@ -20,7 +20,7 @@
               <p>Quản lý tin tức</p>
             </router-link>
           </div>
-           <div class="py-3">
+          <div class="py-3">
             <router-link to="/admin" class="link">
               <v-icon>mdi-home</v-icon>
               <p>Quản lý bánh</p>
@@ -36,6 +36,12 @@
             <router-link to="/admin/orders" class="link">
               <v-icon>mdi-home</v-icon>
               <p>Quản lý order</p>
+            </router-link>
+          </div>
+          <div class="py-3">
+            <router-link to="/admin/perorder" class="link">
+              <v-icon>mdi-home</v-icon>
+              <p>Quản lý liên hệ</p>
             </router-link>
           </div>
         </div>
@@ -102,6 +108,15 @@ export default {
   methods: {
     getUser() {
       this.user = JSON.parse(localStorage.getItem("User"));
+    },
+  },
+  watch: {
+    async $route() {
+      if (this.$route.path.includes("admin")) {
+        this.isAdmin = true;
+      } else {
+        this.isAdmin = false;
+      }
     },
   },
 };
