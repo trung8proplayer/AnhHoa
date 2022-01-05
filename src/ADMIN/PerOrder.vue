@@ -46,7 +46,7 @@ export default {
         { text: "Tên người dùng", value: "full_name", align: "start" },
         { text: "Gmail", value: "email", sortable: false },
         { text: "Số điện thoại", value: "phone", align: "center" },
-        { text: "Loại bánh", value: "content" },
+        { text: "Nội dung", value: "content" },
         { text: "Trạng thái", value: "actions", sortable: false ,align: "center"},
       ],
     };
